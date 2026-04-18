@@ -1,0 +1,123 @@
+:root {
+    --bg-principal: #161A2B;
+    --bg-secundario: #23283E;
+    --text-branco: #FFFFFF;
+    --text-principal: #E4E6EB;
+    --text-secundario: #8A91A6;
+
+    --verde-menta: #74EBAF;
+    --roxo-vibrante: #B030FF;
+    --azul-controle: #5E64FF;
+
+    --azul-controle-hover: #4B54D8;
+    --roxo-vibrante-hover: #9A27E0;
+
+    --vermelho: #FF4B6A;
+    --amarelo: #FFD166;
+}
+
+body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: var(--bg-principal);
+    height: 15dvh;
+    min-height: 100px;
+}
+
+#texto_menu {
+    font-size: 1.5em;
+    color: var(--verde-menta);
+    margin-left: 5dvw;
+}
+
+#lista_menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    gap: 2dvw;
+    margin-right: 5dvw;
+    color: var(--text-principal);
+}
+
+    #lista_menu li a {
+        text-decoration: none;
+        color: var(--text-principal);
+        font-size: 15px;
+        transition: color 0.3s ease;
+    }
+
+    #lista_menu li a:hover {
+        color: var(--verde-menta);
+    }
+
+    #lista_menu li a#selecionada{
+        font-weight: bold;
+        color: var(--verde-menta);
+        font-size: 20px;
+    }
+
+#home {
+    height: 85dvh;
+    background: linear-gradient(to left, var(--bg-principal), var(--bg-secundario));
+    display: flex;
+    justify-content: center;
+
+}
+
+#container_home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 10  0%;
+    width: 50dvw;
+    padding: 0 3dvw;
+    }
+
+#texto_cta {
+    font-size: 5.5rem;
+    color: var(--text-branco);
+    font-family: 'Crimson Pro', serif;
+}
+
+
+#texto_cta span {
+    color: var(--verde-menta);
+    text-align: center;
+}
+
+#texto_descricao_home {
+    width: 50dvw;
+    padding: 0 3dvw;
+    font-size: 1.87em;
+    color: var(--text-secundario);
+}
+
+.texto_verde {
+    color: var(--verde-menta);
+}
+
+.texto_roxo {
+    color: var(--roxo-vibrante);
+}
+
+#container_personagem_home{
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    width: 45dvw;
+    height: 100%;
+    background-image: url(../assets/imgs/personagem/titoForte.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}

@@ -4,19 +4,16 @@ let intervaloCarregamento;
 let intervaloTexto;
 
 function carregarTela() {
-    tela_login.style.display = 'none';
-    tela_carregamento.style.display = 'flex';
-    intervaloCarregamento = setInterval(carregar, 30);
-    intervaloTexto = setInterval(mudarTexto, 500);
+    window.location.href = "../public/animacao.html";
 }
 
+intervaloCarregamento = setInterval(carregarTelaHome, 30);
+intervaloTexto = setInterval(mudarTexto, 500);
 
-function carregar() {
+function carregarTelaHome() {
     porcentagem += 1;
     if (porcentagem > 100) {
-        clearInterval(intervaloCarregamento);
-        clearInterval(intervaloTexto);
-        telaHome()
+        window.location.href = "../public/home.html";
     }
     carregamento_atual.value = porcentagem;
 }
@@ -31,7 +28,18 @@ function mudarTexto() {
     }
 }
 
-function telaHome() {
-    tela_carregamento.style.display = 'none';
-    tela_home.style.display = 'flex';
+function validarLogin() {
+    login_form.addEventListener('submit', function(event) {
+    event.preventDefault(); 
+    let usuario = username.value;
+    let senha = password.value;
+
+    if (usuario.trim() == "" || senha.trim() == "") {
+        error_login.innerHTML = "Por favor, preencha todos os campos.";
+    } else if (senha.length < 6 || senha.length > 20) {
+        error_login.innerHTML = "A senha deve ter entre 6 e 20 caracteres.";
+    } else {
+        window.location.href = "../public/animacao.html";
+    }
+});
 }

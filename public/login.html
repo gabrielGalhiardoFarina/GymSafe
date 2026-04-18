@@ -1,14 +1,45 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/public/js/sessao.js"></script>
+    <link rel="icon" href="./assets/icon/icon.svg" type="image/svg+xml">
+            <link rel="stylesheet" href="/public/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet">
     <title>Login</title>
+
 </head>
+
 <body>
-    
+    <section id="tela_login">
+        <div id="container_login">
+            <h1>Bem-vindo ao Sistema de Login</h1>
+            <form id="login_form">
+                <label for="username">Usuário:</label>
+                <input type="text" id="username" name="username">
+
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password">
+
+                <span id="error_login"></span>
+
+                <button type="submit" onclick="validarLogin()">Entrar</button>
+            </form>
+            <div id="botaoCadastro">
+                <p>Não tem uma conta?</p>
+                <button onclick="window.location.href = '../public/cadastro.html'">Cadastre-se</button>
+            </div>
+            <div id="botaoVoltar"><button onclick="window.location.href = '../public/landing_page.html'; ">‹</button>
+            </div>
+        </div>
+        </div>
+    </section>
 </body>
+<script src="/public/js/script.js"></script>
+
 </html>
 
 <script>
