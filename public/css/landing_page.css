@@ -211,6 +211,179 @@ header {
     animation: hoverCard 3s infinite;
 }
 
+#quem_sou{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100dvh;
+    gap: 5dvw;
+    background: linear-gradient(to right, var(--bg-principal), var(--bg-secundario));
+}
+
+#container_imagem_quem_sou img{
+    width: 35dvw;
+    height: 80dvh;
+    border-radius: 5%;
+}
+
+#relacionamentos{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 140dvh;
+    gap: 5dvw;
+    background-color: var(--bg-principal);
+}
+
+#container_relacionamentos{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#container_relacionamentos h1{
+    font-size: 3.4em;
+    color: var(--text-branco);
+    margin: 0;
+}
+
+#container_relacionamentos p{
+    font-size: 1.0em;
+    color: var(--text-secundario);
+    width: 50dvw;
+    text-align: center;
+    }
+
+#container_imagens{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 5dvh;
+    gap: 5dvw;
+}
+
+#container_imagens img{
+    width: 27dvw;
+    height: 57dvh;
+    border-radius: 20px;
+    filter: contrast(1.2);
+    filter: drop-shadow(0 0 5px var(--azul-controle));;;
+    
+}
+
+#container_comentarios{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 5dvh;
+    padding: 3dvw;
+    width: 65dvw;
+    border-radius: 15px;
+    background-color: var(--bg-secundario);
+    gap: 2dvh;
+}
+
+#aspas{
+    font-size: 4em;
+    padding: 0;
+    margin: 0;
+    height: 23px;
+    color: var(--text-secundario)
+}
+
+#container_comentarios p{
+    font-size: 1.3em;
+    color: var(--text-principal);
+    text-align: left;
+    width: 100%;
+}
+
+footer{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 40dvh;  
+    background-color: var(--bg-secundario);
+    color: var(--text-secundario);
+}
+
+#container_footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+    width: 100%;
+}
+
+#logo_footer{
+    width: 10dvw;
+    height: 10dvh;
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#texto_footer{
+    font-size: 1.2em;
+    color: var(--text-principal);
+}
+
+footer ul{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+}
+
+footer ul li a{
+    text-decoration: none;
+    color: var(--text-secundario);
+    font-size: 1.0em;
+    transition: color 0.3s ease;
+}
+
+footer ul li a:hover{
+    color: var(--text-principal);
+    transform: scale(1.15);
+    font-size: 1.1em;
+    transition: 500ms;
+}
+
+
+#linha_footer{
+    width: 100%;
+    height: 1px;
+    background-color: var(--text-secundario);
+}
+
+#redes_sociais{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2dvw;
+}
+
+#redes_sociais a{
+    color: var(--text-secundario);
+    font-size: 1.5em;
+    transition: color 0.3s ease;
+}
+
+#redes_sociais a:hover{
+    transition: 500ms;
+    filter: invert(80%);
+    transform: scale(1.15);
+}
+
+#redes_sociais a img{
+    width: 50px;
+    height: 50px;
+    filter: invert(80%);
+}
+
 @keyframes hoverCard {
     0% {
     box-shadow: var(--roxo-vibrante) 3px 3px 10px;
