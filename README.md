@@ -1,2 +1,2 @@
-# Mente-em-jogo
-O Mente em Jogo é uma aplicação web que funciona como um diário inteligente de bem-estar. Ele cruza dados de fadiga mental e exercícios físicos, gerando dashboards dinâmicos que comprovam como o movimento reduz o estresse causado pelo excesso de telas. Desenvolvido com HTML, CSS, JS, Node.js, Chart.js e MySQL.
+# GymSafe
+O GymSafe é um projeto individual da SpTech nascido da ideia de que a academia é um refúgio após horas intermináveis de estudo. A aplicação gera dashboards dinâmicos que ilustram o impacto positivo do exercício físico na saúde mental, na conexão familiar e no alívio do estresse diário. Desenvolvido com HTML, CSS, JS, Node.js, Chart.js e MySQL.
