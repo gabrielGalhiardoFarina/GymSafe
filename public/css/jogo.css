@@ -64,12 +64,14 @@
       align-items: center;
       height: 5dvh;
       width: 30dvw;
+      gap: 5px;
   }
 
   #level {
       display: flex;
       align-items: center;
       height: 5dvh;
+      gap: 5px;
 
   }
 
@@ -114,6 +116,7 @@
       flex-direction: column;
       text-align: center;
       height: 30dvh;
+      width: 15dvw;
       color: var(--text-secundario);
   }
 
@@ -179,12 +182,12 @@
   .button_opcoes {
       background: none;
       border: none;
-      width: 25%;
+      width: 18dvw;
+      min-width: 25%;
       height: 100%;
       cursor: pointer;
       margin: 0;
       padding: 0;
-      /* animation: OpcaoSelecionado 1s ease; */
 
   }
 
@@ -220,6 +223,7 @@
       justify-content: center;
       flex-direction: column;
       width: 100%;
+      min-width: 100%;
       border-radius: 20px;
       padding: 8% 2.5%;
       background: linear-gradient(to bottom, var(--bg-secundario), var(--bg-vermelho), var(--bg-secundario));
@@ -351,4 +355,79 @@
       font-weight: bold;
       color: var(--corCusto);
       background-color: var(--custo);
+  }
+
+  #modal_game_over {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      background: rgba(5, 8, 18, 0.82);
+      justify-content: center;
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      padding: 20px;
+  }
+
+  #container_game_over {
+      width: 30dvw;
+      height: 25dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border-radius: 18px;
+      border: 1px solid var(--roxo-vibrante);
+      box-shadow: 0 0 5px var(--roxo-vibrante);
+      background: linear-gradient(to top, var(--roxo-vibrante), var(--bg-principal), var(--bg-principal), var(--bg-principal), var(--bg-principal));
+      padding: 28px 24px;
+      text-align: center;
+      animation: modalGameOverEntrada 0.35s ease;
+  }
+
+  #container_game_over h1 {
+      margin: 0;
+      color: var(--roxo-vibrante);
+  }
+
+  #game_over_motivo {
+      margin: 14px 0 22px;
+      color: var(--text-principal);
+      font-size: 1rem;
+  }
+
+  #container_game_over button {
+      border: none;
+      border-radius: 10px;
+      padding: 12px 22px;
+      font-size: 1.2em;
+      font-weight: 700;
+      cursor: pointer;
+      color: #fff;
+      background: linear-gradient(to bottom , var(--azul-controle) , var(--azul-controle-hover));
+  }
+
+  #container_game_over button:hover {
+    transition: 500ms;
+    transform: 
+    scale(1.15)
+    rotate(-3deg);
+    background: linear-gradient(to bottom , var(--azul-controle-hover) , var(--azul-controle));
+  }
+
+  body.game-over main,
+  body.game-over header {
+      filter: blur(1px) brightness(0.7);
+  }
+
+  @keyframes modalGameOverEntrada {
+      from {
+          opacity: 0;
+          transform: translateY(14px) scale(0.96);
+      }
+
+      to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+      }
   }

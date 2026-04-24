@@ -14,11 +14,11 @@
         <div id="container_info">
             <div id="dias_passados">
                 <img src="./assets/imgs/calendario.svg" alt="" class="icons">
-                Dia 100
+                Dia <span id="dia_atual_html">1</span>
             </div>
             <div id="level">
                 <img src="./assets/imgs/estrela.svg" alt="" class="icons">
-                Level 100
+                Level <span id="level_atual_html">1</span>
             </div>
         </div>
         <div id="container_status">
@@ -28,7 +28,7 @@
                         <img src="./assets/imgs/vida.svg" alt="" class="icons">
                         Vida
                     </div>
-                    <p id="vida">100/100</p>
+                    <p id="vida"><span id="vida_atual_html">100</span>/<span id="vida_max_html">100</span></p>
                 </div>
                 <div id="status_vida"></div>
             </div>
@@ -39,7 +39,7 @@
                         <img src="./assets/imgs/foco.svg" alt="" class="icons">
                         Foco
                     </div>
-                    <p id="foco">95/100</p>
+                    <p id="foco"><span id="foco_atual_html">30</span>/<span id="foco_max_html">100</span></p>
                 </div>
                 <div id="status_foco"></div>
             </div>
@@ -50,7 +50,7 @@
                         <img src="./assets/imgs/raio.svg" alt="" class="icons">
                         Energia
                     </div>
-                    <p id="energia">80/100</p>
+                    <p id="energia"><span id="energia_atual_html">30</span>/<span id="energia_max_html">100</span></p>
                 </div>
                 <div id="status_energia"></div>
             </div>
@@ -60,18 +60,18 @@
     <main>
         <section id="container_player">
             <div id="titulo_personagem">
-                <h2>Médio</h2>
-                <p>Auto estima normal</p>
+                <h2 id="titulo_h2">Médio</h2>
+                <p id="descricao_p">Auto estima normal</p>
                 <div id="container_progress">
                     <label for="progress">Evolução:</label>
-                    <p>0%</p>
+                    <p><span id="xp_atual_html">0</span>%</p>
                 </div>
                 <div id="progress">
                     <div id="progress_bar"></div>
                 </div>
             </div>
             <div id="personagem">
-                <img src="./assets/imgs/personagem/char_padrao_neutro.png" alt="" id="personagem_foto">
+                <img src="./assets/imgs/personagem/char_1.png" alt="" id="personagem_foto">
             </div>
         </section>
         <section id="container_opcoes">
@@ -79,7 +79,10 @@
 
             <div id="container_total_opcoes">
 
-                <button class="button_opcoes">
+                <button class="button_opcoes" onclick="
+                selecionar_opcao(
+                20, 20, 25, 5, [15], ['vida'], this
+                )">
 
                     <div class="container_opcoes_escolha">
                         <div class="icons_opcao">
@@ -102,7 +105,9 @@
                     </div>
                 </button>
 
-                <button class="button_opcoes">
+                <button class="button_opcoes" onclick="selecionar_opcao(
+                0, 0, 25, 50, [15, 40], ['vida', 'energia'], this
+                )">
                     <div class="container_opcoes_escolha_ruim">
                         <div class="icons_opcao_ruim">
                             <img src="./assets/imgs/tv.svg" alt="">
@@ -123,7 +128,9 @@
                     </div>
                 </button>
 
-                <button class="button_opcoes">
+                <button class="button_opcoes" onclick="selecionar_opcao(
+                10, 0, 25, 12, [18], ['energia'], this
+                )">
                     <div class="container_opcoes_escolha">
                         <div class="icons_opcao">
                             <img src="./assets/imgs/livro.svg" alt="">
@@ -144,15 +151,317 @@
                         </div>
                     </div>
                 </button>
-
             </div>
-
         </section>
     </main>
+    <div id="modal_game_over">
+        <div id="container_game_over">
+            <h1>Fim de Jogo</h1>
+            <p id="game_over_motivo">Você teve pessimos habitos!</p>
+            <button onclick="location.reload()">Jogar Novamente</button>
+        </div>
+    </div>
 </body>
 
 <script>
-        //   animation: OpcaoSelecionado 1s ease;
+    let cartaAnimacaoOn;
+    let animacaoBotaoOn = false;
 
+    let dia_atual = 1;
+    let level_atual = 1;
+
+    let energia_Atual = 30;
+    let energia_Max = 100;
+
+    let foco_Atual = 30;
+    let foco_Max = 100;
+
+    let vida_Atual = 100;
+    let vida_Max = 100;
+
+    let xp_Atual = 0;
+
+    let cardLista = [];
+
+    let descricao_personagem = [
+        {
+            titulo: "Sobrepeso",
+            descricao: "Você está se sentindo sobrecarregado, cansado e sem energia para enfrentar os desafios do dia a dia"
+        },
+        {
+            titulo: "Doente",
+            descricao: "Você está se sentindo mal, com sintomas que afetam seu bem-estar"
+        },
+        {
+            titulo: "Fraco",
+            descricao: "Sua auto estima está baixa, você se sente cansado e sem motivação"
+        },
+        {
+            titulo: "Médio",
+            descricao: "Sua auto estima está normal, você se sente bem, mas sabe que pode melhorar"
+        },
+        {
+            titulo: "Forte",
+            descricao: "Sua auto estima está alta, você se sente confiante e motivado para enfrentar qualquer desafio"
+        },
+        {
+            titulo: "Musculoso",
+            descricao: "Sua auto estima está muito alta, você se sente imbatível e pronto para conquistar o mundo"
+        },
+        {
+            titulo: "Hercules",
+            descricao: "Sua auto estima está no auge, você se sente um verdadeiro deus grego, invencível e eterno"
+        },
+        {
+            titulo: "Lendário",
+            descricao: "Sua auto estima transcendeu os limites humanos, você se sente uma lenda viva, um mito que inspira gerações"
+        }
+    ]
+
+    let jsonCartas = [
+        {
+            "status": "boa",
+            "imagem": "./assets/imgs/peso.svg",
+            "titulo": "Treinar",
+            "descricao": "Melhore sua força e resistência",
+            "beneficioEnergia": 20,
+            "beneficioFoco": 25,
+            "beneficioXp": 5,
+            "ListaCustoValor": [15],
+            "ListaCustoTexto": ["vida"]
+        },
+        {
+            "status": "ruim",
+            "imagem": "./assets/imgs/tv.svg",
+            "titulo": "Tiktok",
+            "descricao": "Assistir vídeos até de madrugada",
+            "beneficioFoco": 25,
+            "beneficioXp": 22,
+            "ListaCustoValor": [15, 40],
+            "ListaCustoTexto": ["vida", "energia"]
+        },
+        {
+            "status": "boa",
+            "imagem": "./assets/imgs/livro.svg",
+            "titulo": "Estudar",
+            "descricao": "Melhore seu conhecimento e habilidades",
+            "beneficioVida": 10,
+            "beneficioFoco": 25,
+            "beneficioXp": 12,
+            "ListaCustoValor": [18],
+            "ListaCustoTexto": ["energia"]
+        },
+        {
+            "status": "ruim",
+            "imagem": "./assets/imgs/cafe.svg",
+            "titulo": "Comer Pizza",
+            "descricao": "Delicioso, mas não muito saudável",
+            "beneficioEnergia": 15,
+            "beneficioXp": 10,
+            "ListaCustoValor": [20],
+            "ListaCustoTexto": ["vida"]
+        },
+        {
+            "status": "boa",
+            "imagem": "./assets/imgs/cafe.svg",
+            "titulo": "Tomar Café",
+            "descricao": "Aumenta seu foco e energia",
+            "beneficioEnergia": 10,
+            "beneficioFoco": 15,
+            "ListaCustoValor": [5],
+            "ListaCustoTexto": ["vida"]
+        },
+        {
+            "status": "ruim",
+            "imagem": "./assets/imgs/tv.svg",
+            "titulo": "Ficar no sofá",
+            "descricao": "Relaxar é importante, mas cuidado com o excesso",
+            "beneficioVida": 5,
+            "beneficioEnergia": 10,
+            "ListaCustoValor": [10],
+            "ListaCustoTexto": ["foco"]
+        },
+        {
+            "status": "boa",
+            "imagem": "./assets/imgs/cafe.svg",
+            "titulo": "Meditar",
+            "descricao": "Acalma a mente e melhora o foco",
+            "beneficioFoco": 20,
+            "beneficioVida": 5,
+            "ListaCustoValor": [10],
+            "ListaCustoTexto": ["energia"]
+        }
+    ];
+
+    function cartas_iniciais() {
+        clearInterval(cartaAnimacaoOn);
+        animacaoBotaoOn = false;
+        let cartasAleatorias = [
+            jsonCartas[Math.floor(Math.random() * jsonCartas.length)],
+            jsonCartas[Math.floor(Math.random() * jsonCartas.length)],
+            jsonCartas[Math.floor(Math.random() * jsonCartas.length)]
+        ];
+
+        for (let i = 0; i < cartasAleatorias.length; i++) {
+            if (cardLista.length >= 3) {
+                cardLista.shift();
+            }
+
+            let carta = cartasAleatorias[i];
+
+            if (carta.status == "boa") {
+                carta_boa(carta.imagem, carta.titulo, carta.descricao, carta.beneficioVida, carta.beneficioEnergia, carta.beneficioFoco, carta.beneficioXp, carta.ListaCustoValor, carta.ListaCustoTexto);
+            } else {
+                carta_ruim(carta.imagem, carta.titulo, carta.descricao, carta.beneficioVida, carta.beneficioEnergia, carta.beneficioFoco, carta.beneficioXp, carta.ListaCustoValor, carta.ListaCustoTexto);
+            }
+        }
+
+        container_total_opcoes.innerHTML = cardLista.join("");
+    }
+
+    function carta_boa(imagem, titulo, descricao, beneficioVida, beneficioEnergia, beneficioFoco, beneficioXp, ListaCustoValor, ListaCustoTexto) {
+
+        cardLista.push(`
+        <button class="button_opcoes" onclick='selecionar_opcao(
+        ${beneficioVida}, ${beneficioEnergia}, ${beneficioFoco}, ${beneficioXp}, ${JSON.stringify(ListaCustoValor)}, ${JSON.stringify(ListaCustoTexto)}, this
+        )'>
+            <div class="container_opcoes_escolha">
+                <div class="icons_opcao">
+                    <img src="${imagem}" alt="">
+                </div>
+                <div class="fundo_opcao">
+                    <img src="${imagem}" alt="">
+                </div>
+                <h3 class="titulo_opcao">${titulo}</h3>
+                <p class="descricao_opcao">${descricao}</p>
+                <div class="beneficios_opcoes">
+                    ${beneficioVida ? `<p class="beneficio_vida">+${beneficioVida} de vida</p>` : ''}
+                    ${beneficioEnergia ? `<p class="beneficio_energia">+${beneficioEnergia} de energia</p>` : ''}
+                    ${beneficioFoco ? `<p class="beneficio_foco">+${beneficioFoco} de foco</p>` : ''}
+                    ${beneficioXp ? `<p class="beneficio_xp">+${beneficioXp} de xp</p>` : ''}
+                </div>
+                <div class="custo_opcao">
+                    <p class="custo">Custo: </p>
+                    <p class="div_custo_valor">${formatar_custo(ListaCustoValor, ListaCustoTexto)}</p>
+                </div>
+            </div>
+        </button>
+    `);
+    }
+
+    function carta_ruim(imagem, titulo, descricao, beneficioVida, beneficioEnergia, beneficioFoco, beneficioXp, ListaCustoValor, ListaCustoTexto) {
+
+        cardLista.push(`
+        <button class="button_opcoes" onclick='selecionar_opcao(
+        ${beneficioVida}, ${beneficioEnergia}, ${beneficioFoco}, ${beneficioXp}, ${JSON.stringify(ListaCustoValor)}, ${JSON.stringify(ListaCustoTexto)}, this
+        )'>
+            <div class="container_opcoes_escolha_ruim">
+                <div class="icons_opcao_ruim">
+                    <img src="${imagem}" alt="">
+                    </div>
+                    <div class="fundo_opcao">
+                        <img src="${imagem}" alt="">
+                        </div>
+                <h3 class="titulo_opcao">${titulo}</h3>
+                <p class="descricao_opcao">${descricao}</p>
+                <div class="beneficios_opcoes">
+                    ${beneficioVida ? `<p class="beneficio_vida">+${beneficioVida} de vida</p>` : ''}
+                    ${beneficioEnergia ? `<p class="beneficio_energia">+${beneficioEnergia} de energia</p>` : ''}
+                    ${beneficioFoco ? `<p class="beneficio_foco">+${beneficioFoco} de foco</p>` : ''}
+                    ${beneficioXp ? `<p class="beneficio_xp">+${beneficioXp} de xp</p>` : ''}
+                </div>
+                <div class="custo_opcao">
+                    <p class="custo">Custo: </p>
+                    <p class="div_custo_valor">${formatar_custo(ListaCustoValor, ListaCustoTexto)}</p>
+                </div>
+            </div>
+        </button>
+    `);
+    }
+
+    function selecionar_opcao(beneficioVida = 0, beneficioEnergia = 0, beneficioFoco = 0, beneficioXp = 0, ListaCustoValor, ListaCustoTexto, botaoParaAnimar) {
+        botaoParaAnimar.style.animation = "OpcaoSelecionado 1s ease";
+
+        if (animacaoBotaoOn == false) {
+            animacaoBotaoOn = true;
+
+            vida_Atual += beneficioVida;
+            energia_Atual += beneficioEnergia;
+            foco_Atual += beneficioFoco;
+            xp_Atual += beneficioXp;
+
+            for (let i = 0; i < ListaCustoTexto.length; i++) {
+                if (ListaCustoTexto[i] == "vida") {
+                    vida_Atual -= ListaCustoValor[i];
+                } else if (ListaCustoTexto[i] == "energia") {
+                    energia_Atual -= ListaCustoValor[i];
+                } else if (ListaCustoTexto[i] == "foco") {
+                    foco_Atual -= ListaCustoValor[i];
+                }
+            }
+
+            if (vida_Atual < 0 || energia_Atual < 0 || foco_Atual < 0) {
+                abrir_modal_game_over();
+                return;
+            }
+
+
+            dia_atual++;
+
+            if (xp_Atual >= 100) {
+                level_atual++;
+                xp_Atual -= 100;
+            }
+
+            if (vida_Atual > 100) {
+                vida_Atual = 100;
+            }
+            if (energia_Atual > 100) {
+                energia_Atual = 100;
+            }
+            if (foco_Atual > 100) {
+                foco_Atual = 100;
+            }
+
+            vida_atual_html.innerText = vida_Atual;
+            energia_atual_html.innerText = energia_Atual;
+            foco_atual_html.innerText = foco_Atual;
+            xp_atual_html.innerText = xp_Atual;
+
+            dia_atual_html.innerText = dia_atual;
+            level_atual_html.innerText = level_atual;
+
+
+            progress_bar.style.width = `${xp_Atual}%`;
+
+            titulo_h2.innerText = descricao_personagem[level_atual - 1].titulo;
+            descricao_p.innerText = descricao_personagem[level_atual - 1].descricao;
+
+            personagem_foto.src = `./assets/imgs/personagem/char_${level_atual}.png`;
+
+            cartaAnimacaoOn = setInterval(cartas_iniciais, 900);
+
+        }
+
+    }
+
+    function formatar_custo(ListaCustoValor = [], ListaCustoTexto = []) {
+        let custos = [];
+
+        for (let i = 0; i < ListaCustoValor.length; i++) {
+            if (ListaCustoTexto[i]) {
+                custos.push(`${ListaCustoValor[i]} ${ListaCustoTexto[i]}`);
+            }
+        }
+
+        return custos.join(" e ");
+    }
+
+    function abrir_modal_game_over() {
+        modal_game_over.style.display = "flex";
+        clearInterval(cartaAnimacaoOn);
+        animacaoBotaoOn = true;
+    }
 </script>
+
 </html>
