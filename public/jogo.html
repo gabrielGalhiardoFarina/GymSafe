@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/icon/icon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/jogo.css">
+    <title>Jogo</title>
+</head>
+
+<body>
+    <header>
+        <div id="container_info">
+            <div id="dias_passados">
+                <img src="./assets/imgs/calendario.svg" alt="" class="icons">
+                Dia 100
+            </div>
+            <div id="level">
+                <img src="./assets/imgs/estrela.svg" alt="" class="icons">
+                Level 100
+            </div>
+        </div>
+        <div id="container_status">
+            <div class="bloco_status">
+                <div>
+                    <div>
+                        <img src="./assets/imgs/vida.svg" alt="" class="icons">
+                        Vida
+                    </div>
+                    <p id="vida">100/100</p>
+                </div>
+                <div id="status_vida"></div>
+            </div>
+
+            <div class="bloco_status">
+                <div>
+                    <div>
+                        <img src="./assets/imgs/foco.svg" alt="" class="icons">
+                        Foco
+                    </div>
+                    <p id="foco">95/100</p>
+                </div>
+                <div id="status_foco"></div>
+            </div>
+
+            <div class="bloco_status">
+                <div>
+                    <div>
+                        <img src="./assets/imgs/raio.svg" alt="" class="icons">
+                        Energia
+                    </div>
+                    <p id="energia">80/100</p>
+                </div>
+                <div id="status_energia"></div>
+            </div>
+        </div>
+
+    </header>
+    <main>
+        <section id="container_player">
+            <div id="titulo_personagem">
+                <h2>Médio</h2>
+                <p>Auto estima normal</p>
+                <div id="container_progress">
+                    <label for="progress">Evolução:</label>
+                    <p>0%</p>
+                </div>
+                <div id="progress">
+                    <div id="progress_bar"></div>
+                </div>
+            </div>
+            <div id="personagem">
+                <img src="./assets/imgs/personagem/char_padrao_neutro.png" alt="" id="personagem_foto">
+            </div>
+        </section>
+        <section id="container_opcoes">
+            <h1>Como você quer gastar o dia?</h1>
+
+            <div id="container_total_opcoes">
+
+                <button class="button_opcoes">
+
+                    <div class="container_opcoes_escolha">
+                        <div class="icons_opcao">
+                            <img src="./assets/imgs/peso.svg" alt="">
+                        </div>
+                        <div class="fundo_opcao">
+                            <img src="./assets/imgs/peso.svg" alt="">
+                        </div>
+                        <h3 class="titulo_opcao">Treinar</h3>
+                        <p class="descricao_opcao">Melhore sua força e resistência</p>
+                        <div class="beneficios_opcoes">
+                            <p class="beneficio_energia">+20 de energia</p>
+                            <p class="beneficio_foco">+25 de foco</p>
+                            <p class="beneficio_xp">+5 de xp</p>
+                        </div>
+                        <div class="custo_opcao">
+                            <p class="custo">Custo: </p>
+                            <p class="div_custo_valor">15 vida</p>
+                        </div>
+                    </div>
+                </button>
+
+                <button class="button_opcoes">
+                    <div class="container_opcoes_escolha_ruim">
+                        <div class="icons_opcao_ruim">
+                            <img src="./assets/imgs/tv.svg" alt="">
+                        </div>
+                        <div class="fundo_opcao">
+                            <img src="./assets/imgs/tv.svg" alt="">
+                        </div>
+                        <h3 class="titulo_opcao">Tiktok</h3>
+                        <p class="descricao_opcao">Assistir vídeos até de madrugada</p>
+                        <div class="beneficios_opcoes">
+                            <p class="beneficio_foco">+25 de foco</p>
+                            <p class="beneficio_xp">+50 de xp</p>
+                        </div>
+                        <div class="custo_opcao">
+                            <p class="custo">Custo: </p>
+                            <p class="div_custo_valor">15 vida e 40 energia</p>
+                        </div>
+                    </div>
+                </button>
+
+                <button class="button_opcoes">
+                    <div class="container_opcoes_escolha">
+                        <div class="icons_opcao">
+                            <img src="./assets/imgs/livro.svg" alt="">
+                        </div>
+                        <div class="fundo_opcao">
+                            <img src="./assets/imgs/livro.svg" alt="">
+                        </div>
+                        <h3 class="titulo_opcao">Estudar</h3>
+                        <p class="descricao_opcao">Melhore seu conhecimento e habilidades</p>
+                        <div class="beneficios_opcoes">
+                            <p class="beneficio_vida">+10 de vida</p>
+                            <p class="beneficio_foco">+25 de foco</p>
+                            <p class="beneficio_xp">+12 de xp</p>
+                        </div>
+                        <div class="custo_opcao">
+                            <p class="custo">Custo: </p>
+                            <p class="div_custo_valor">18 energia</p>
+                        </div>
+                    </div>
+                </button>
+
+            </div>
+
+        </section>
+    </main>
+</body>
+
+<script>
+        //   animation: OpcaoSelecionado 1s ease;
+
+</script>
+</html>
