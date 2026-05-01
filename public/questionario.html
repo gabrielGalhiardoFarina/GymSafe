@@ -13,7 +13,7 @@
 </head>
 
 <body onload="validarSessao()">
-    <div id="container_questionario">   
+    <div id="container_questionario">
         <div id="menu_questionario">
             <ul>
                 <li id="sair_questionario">
@@ -240,12 +240,12 @@
             "pontos": [10, 20, 30, 40]
         }
     ]
-    
+
     function sair() {
         if (confirm("Tem certeza que deseja sair do questionário?")) {
-            window.location.href = "./landing_page.html";
+            window.location.href = "./index.html";
         }
-    }   
+    }
 
     function proximaPergunta() {
         let pergunta = jsonPerguntas[questaoAtual].pergunta;
@@ -256,10 +256,33 @@
         questaoAtual++;
         questao_atual.innerHTML = questaoAtual;
 
-        if(questaoAtual == jsonPerguntas.length){
-            //Aqui vou fazer o futuro fech para conseguir resgatar as informações na tela da dashboard
+        if (questaoAtual == jsonPerguntas.length) {
+            fetch("/questionario/cadastrar/pontos", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    pontosAtividadeFisicaServer: pontosAtividadeFisica,
+                    pontosMobilidadeServer: pontosMobilidade,
+                    pontosSaudeMentalServer: pontosSaudeMental,
+                    pontosQualidadeSonoServer: pontosQualidadeSono,
+                    pontosAlimentacaoServer: pontosAlimentacao,
+                    pontosConexaoFamiliarServer: pontosConexaoFamiliar,
+                    emailServer: sessionStorage.getItem("EMAIL_USUARIO"),
+                })
+            }).then(resposta => {
+                if (resposta.ok) {
+                    console.log("Pontos cadastrados com sucesso!");
+                    window.location.href = "./dashboard.html";
+                } else {
+                    console.error("Erro ao cadastrar os pontos.");
+                }
+            }).catch(erro => {
+                console.error("Erro na requisição:", erro);
+            });
+
             alert("pontos do questionario: " + pontosAtividadeFisica + " " + pontosMobilidade + " " + pontosSaudeMental + " " + pontosQualidadeSono + " " + pontosAlimentacao + " " + pontosConexaoFamiliar);
-            window.location.href = "./dashboard.html";
             return;
         }
 

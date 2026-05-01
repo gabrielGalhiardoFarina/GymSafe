@@ -16,6 +16,7 @@
     var app = express();
 
     var usuarioRouter = require("./src/routes/usuarios");
+    var questionarioRouter = require("./src/routes/questionario");
 
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
@@ -24,7 +25,8 @@
     app.use(cors());
 
     app.use("/usuarios", usuarioRouter);
-
+    app.use("/questionario", questionarioRouter);
+    
     app.listen(PORTA_APP, function () {
         console.log(`
         ##   ##  ######   #####             ####       ##     ######     ##              ##  ##    ####    ######  

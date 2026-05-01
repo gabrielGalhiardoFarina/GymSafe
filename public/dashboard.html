@@ -1,11 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/sessao.js"></script>
     <title>Dashboard</title>
 </head>
-<body>
+
+<body onload="validarSessao()">
     <h1>Dashboard</h1>
+    <div id="pontosContainer"></div>
+    <button onclick="pegarPontos()">Atualizar Pontos</button>
 </body>
+<script>
+    function pegarPontos() {
+        fetch("/questionario/listar/pontos", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: sessionStorage.getItem("EMAIL_USUARIO"),
+            })
+        }).then(response => response.json())
+            .then(data => {
+                pontosContainer.innerHTML = "";
+                for (let i = 0; i < data.length; i++) {
+                    console.log(data[i]);
+                    pontosContainer.innerHTML += `<p>${data[i].nome}: ${data[i].valor} pontos</p>`;
+                }
+
+            })
+            .catch(error => {
+                console.error("Erro ao pegar pontos do questionário:", error);
+                pontosContainer.innerHTML = "<p>Erro ao carregar pontos. Tente novamente mais tarde.</p>";
+            });
+    }
+
+</script>
+
 </html>
