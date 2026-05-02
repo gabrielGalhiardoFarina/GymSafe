@@ -67,7 +67,8 @@
         <section id="container_player">
             <div id="titulo_personagem">
                 <h2 id="titulo_h2">Sobrepeso</h2>
-                <p id="descricao_p">Você está se sentindo sobrecarregado, cansado e sem energia para enfrentar os desafios do dia a dia</p>
+                <p id="descricao_p">Você está se sentindo sobrecarregado, cansado e sem energia para enfrentar os
+                    desafios do dia a dia</p>
                 <div id="container_progresso">
                     <label for="progresso">Evolução:</label>
                     <p><span id="xp_atual_html">0</span>%</p>
@@ -102,7 +103,7 @@
             <button onclick="location.reload()">Jogar Novamente</button>
         </div>
     </div>
-    
+
 </body>
 
 <script>
@@ -160,186 +161,288 @@
         }
     ]
 
-    let jsonCartas = [
-        {
-            "status": "boa",
-            "imagem": "./assets/icon/zzz.svg",
-            "titulo": "Dormir 8 Horas",
-            "descricao": "Uma noite perfeita de sono reparador.",
-            "beneficioVida": 15,
-            "beneficioEnergia": 30,
-            "beneficioXp": 5,
-            "ListaCustoValor": [5],
-            "ListaCustoTexto": ["foco"]
-        },
-        {
-            "status": "boa",
-            "imagem": "./assets/icon/panela.svg",
-            "titulo": "Cozinhar em Casa",
-            "descricao": "Refeição nutritiva e balanceada.",
-            "beneficioVida": 20,
-            "beneficioFoco": 10,
-            "beneficioXp": 12,
-            "ListaCustoValor": [15],
-            "ListaCustoTexto": ["energia"]
-        },
-        {
-            "status": "boa",
-            "imagem": "./assets/icon/agua.svg",
-            "titulo": "Beber Água e Alongar",
-            "descricao": "Pequenos hábitos salvam o seu corpo.",
-            "beneficioVida": 10,
-            "beneficioEnergia": 15,
-            "beneficioFoco": 5,
-            "beneficioXp": 5,
-            "ListaCustoValor": [0],
-            "ListaCustoTexto": ["sem custo"]
-        },
-        {
-            "status": "boa",
-            "imagem": "./assets/icon/amigo.svg",
-            "titulo": "Sair com Amigos",
-            "descricao": "Boas risadas recarregam a mente.",
-            "beneficioFoco": 30,
-            "beneficioXp": 15,
-            "ListaCustoValor": [15, 5],
-            "ListaCustoTexto": ["energia", "vida"]
-        },
-        {
-            "status": "boa",
-            "imagem": "./assets/icon/vassoura.svg",
-            "titulo": "Arrumar o Quarto",
-            "descricao": "Ambiente limpo, mente organizada.",
-            "beneficioFoco": 20,
-            "beneficioXp": 10,
-            "ListaCustoValor": [15],
-            "ListaCustoTexto": ["energia"]
-        },
-        {
-            "status": "ruim",
-            "imagem": "./assets/icon/jogar.svg",
-            "titulo": "Virar a Noite Jogando",
-            "descricao": "Foi muito épico, mas cadê a disposição?",
-            "beneficioFoco": 15,
-            "beneficioXp": 30,
-            "ListaCustoValor": [35, 10],
-            "ListaCustoTexto": ["energia", "vida"]
-        },
-        {
-            "status": "ruim",
-            "imagem": "./assets/icon/trabalho.svg",
-            "titulo": "Excesso de Trabalho",
-            "descricao": "Você ignorou o relógio e continuou trabalhando.",
-            "beneficioXp": 25,
-            "ListaCustoValor": [20, 25],
-            "ListaCustoTexto": ["foco", "energia"]
-        },
-        {
-            "status": "ruim",
-            "imagem": "./assets/icon/lanche.svg",
-            "titulo": "Comer Fast Food",
-            "descricao": "Rápido, gostoso e péssimo a longo prazo.",
-            "beneficioEnergia": 25,
-            "beneficioXp": 10,
-            "ListaCustoValor": [15, 10],
-            "ListaCustoTexto": ["vida", "foco"]
-        },
-        {
-            "status": "ruim",
-            "imagem": "./assets/icon/discutir.svg",
-            "titulo": "Discutir na Internet",
-            "descricao": "Você perdeu horas brigando nos comentários.",
-            "beneficioXp": 5,
-            "ListaCustoValor": [25, 5],
-            "ListaCustoTexto": ["foco", "vida"]
-        },
-        {
-            "status": "ruim",
-            "imagem": "./assets/icon/sofa.svg",
-            "titulo": "Procrastinar",
-            "descricao": "Deixar tudo para amanhã gera ansiedade.",
-            "beneficioEnergia": 10,
-            "beneficioXp": 5,
-            "ListaCustoValor": [20],
-            "ListaCustoTexto": ["foco"]
-        },
-        {
-            "status": "boa",
-            "imagem": "./assets/icon/peso.svg",
-            "titulo": "Treinar",
-            "descricao": "Melhore sua força, saúde e resistência.",
-            "beneficioVida": 20,
-            "beneficioFoco": 15,
-            "beneficioXp": 15,
-            "ListaCustoValor": [25],
-            "ListaCustoTexto": ["energia"]
-        },
-        {
-            "status": "ruim",
-            "imagem": "./assets/icon/tiktok.svg",
-            "titulo": "Tiktok",
-            "descricao": "Assistir vídeos curtos até de madrugada.",
-            "beneficioXp": 25,
-            "ListaCustoValor": [20, 15],
-            "ListaCustoTexto": ["foco", "energia"]
-        },
-        {
-            "status": "boa",
-            "imagem": "./assets/icon/livro.svg",
-            "titulo": "Estudar",
-            "descricao": "Melhore seu conhecimento e habilidades",
-            "beneficioVida": 10,
-            "beneficioFoco": 25,
-            "beneficioXp": 12,
-            "ListaCustoValor": [18],
-            "ListaCustoTexto": ["energia"]
-        },
-        {
-            "status": "ruim",
-            "imagem": "./assets/icon/pizza.svg",
-            "titulo": "Comer Pizza",
-            "descricao": "Delicioso, mas não muito saudável",
-            "beneficioEnergia": 15,
-            "beneficioXp": 10,
-            "ListaCustoValor": [20],
-            "ListaCustoTexto": ["vida"]
-        },
-        {
-            "status": "boa",
-            "imagem": "./assets/icon/cafe.svg",
-            "titulo": "Tomar Café",
-            "descricao": "Aumenta seu foco e energia",
-            "beneficioEnergia": 10,
-            "beneficioFoco": 15,
-            "ListaCustoValor": [5],
-            "ListaCustoTexto": ["vida"]
-        },
-        {
-            "status": "ruim",
-            "imagem": "./assets/icon/tv.svg",
-            "titulo": "Ficar no sofá",
-            "descricao": "Relaxar é importante, mas cuidado com o excesso",
-            "beneficioVida": 5,
-            "beneficioEnergia": 10,
-            "ListaCustoValor": [17],
-            "ListaCustoTexto": ["foco"]
-        },
-        {
-            "status": "boa",
-            "imagem": "./assets/icon/meditacao.svg",
-            "titulo": "Meditar",
-            "descricao": "Acalma a mente, exigindo apenas um pouco de disciplina.",
-            "beneficioFoco": 25,
-            "beneficioEnergia": 10,
-            "beneficioXp": 10,
-            "ListaCustoValor": [5],
-            "ListaCustoTexto": ["foco"]
+    let jsonCartas = [];
+
+    function carregarCartas() {
+        fetch('/cartas/listar')
+            .then(res => res.json())
+            .then(data => {
+                if (!Array.isArray(data) || data.length === 0) {
+                    console.warn('Nenhuma carta retornada do servidor.');
+                    jsonCartas = [];
+                } else {
+                    jsonCartas = data;
+                }
+                cartas_iniciais();
+            })
+            .catch(err => {
+                console.error('Erro ao buscar cartas:', err);
+                jsonCartas = [];
+                usarJsonDefault();
+            });
+    }
+
+    function usarJsonDefault() {
+        alert('Banco de dados não disponível. Usando cartas padrão.');
+        jsonCartas = [
+            {
+                "id": 1,
+                "status": "boa",
+                "imagem": "./assets/icon/zzz.svg",
+                "titulo": "Dormir 8 Horas",
+                "descricao": "Uma noite perfeita de sono reparador.",
+                "listaBeneficios": [
+                    {"nome": "vida", "valor": 15},
+                    {"nome": "energia", "valor": 30},
+                    {"nome": "xp", "valor": 5}
+                ],
+                "listaCustos": [{"nome": "foco", "valor": 5}]
+            },
+            {
+                "id": 2,
+                "status": "boa",
+                "imagem": "./assets/icon/panela.svg",
+                "titulo": "Cozinhar em Casa",
+                "descricao": "Refeição nutritiva e balanceada.",
+                "listaBeneficios": [
+                    {"nome": "vida", "valor": 20},
+                    {"nome": "foco", "valor": 10},
+                    {"nome": "xp", "valor": 12}
+                ],
+                "listaCustos": [{"nome": "energia", "valor": 15}]
+            },
+            {
+                "id": 3,
+                "status": "boa",
+                "imagem": "./assets/icon/agua.svg",
+                "titulo": "Beber Água e Alongar",
+                "descricao": "Pequenos hábitos salvam o seu corpo.",
+                "listaBeneficios": [
+                    {"nome": "vida", "valor": 10},
+                    {"nome": "energia", "valor": 15},
+                    {"nome": "foco", "valor": 5},
+                    {"nome": "xp", "valor": 5}
+                ],
+                "listaCustos": []
+            },
+            {
+                "id": 4,
+                "status": "boa",
+                "imagem": "./assets/icon/amigo.svg",
+                "titulo": "Sair com Amigos",
+                "descricao": "Boas risadas recarregam a mente.",
+                "listaBeneficios": [
+                    {"nome": "foco", "valor": 30},
+                    {"nome": "xp", "valor": 15}
+                ],
+                "listaCustos": [
+                    {"nome": "energia", "valor": 15},
+                    {"nome": "vida", "valor": 5}
+                ]
+            },
+            {
+                "id": 5,
+                "status": "boa",
+                "imagem": "./assets/icon/vassoura.svg",
+                "titulo": "Arrumar o Quarto",
+                "descricao": "Ambiente limpo, mente organizada.",
+                "listaBeneficios": [
+                    {"nome": "foco", "valor": 20},
+                    {"nome": "xp", "valor": 10}
+                ],
+                "listaCustos": [{"nome": "energia", "valor": 15}]
+            },
+            {
+                "id": 6,
+                "status": "ruim",
+                "imagem": "./assets/icon/jogar.svg",
+                "titulo": "Virar a Noite Jogando",
+                "descricao": "Foi muito épico, mas cadê a disposição?",
+                "listaBeneficios": [
+                    {"nome": "foco", "valor": 15},
+                    {"nome": "xp", "valor": 30}
+                ],
+                "listaCustos": [
+                    {"nome": "energia", "valor": 35},
+                    {"nome": "vida", "valor": 10}
+                ]
+            },
+            {
+                "id": 7,
+                "status": "ruim",
+                "imagem": "./assets/icon/trabalho.svg",
+                "titulo": "Excesso de Trabalho",
+                "descricao": "Você ignorou o relógio e continuou trabalhando.",
+                "listaBeneficios": [{"nome": "xp", "valor": 25}],
+                "listaCustos": [
+                    {"nome": "foco", "valor": 20},
+                    {"nome": "energia", "valor": 25}
+                ]
+            },
+            {
+                "id": 8,
+                "status": "ruim",
+                "imagem": "./assets/icon/lanche.svg",
+                "titulo": "Comer Fast Food",
+                "descricao": "Rápido, gostoso e péssimo a longo prazo.",
+                "listaBeneficios": [
+                    {"nome": "energia", "valor": 25},
+                    {"nome": "xp", "valor": 10}
+                ],
+                "listaCustos": [
+                    {"nome": "vida", "valor": 15},
+                    {"nome": "foco", "valor": 10}
+                ]
+            },
+            {
+                "id": 9,
+                "status": "ruim",
+                "imagem": "./assets/icon/discutir.svg",
+                "titulo": "Discutir na Internet",
+                "descricao": "Você perdeu horas brigando nos comentários.",
+                "listaBeneficios": [{"nome": "xp", "valor": 5}],
+                "listaCustos": [
+                    {"nome": "foco", "valor": 25},
+                    {"nome": "vida", "valor": 5}
+                ]
+            },
+            {
+                "id": 10,
+                "status": "ruim",
+                "imagem": "./assets/icon/sofa.svg",
+                "titulo": "Procrastinar",
+                "descricao": "Deixar tudo para amanhã gera ansiedade.",
+                "listaBeneficios": [{"nome": "energia", "valor": 10}, {"nome": "xp", "valor": 5}],
+                "listaCustos": [{"nome": "foco", "valor": 20}]
+            },
+            {
+                "id": 11,
+                "status": "boa",
+                "imagem": "./assets/icon/peso.svg",
+                "titulo": "Treinar",
+                "descricao": "Melhore sua força, saúde e resistência.",
+                "listaBeneficios": [
+                    {"nome": "vida", "valor": 20},
+                    {"nome": "foco", "valor": 15},
+                    {"nome": "xp", "valor": 15}
+                ],
+                "listaCustos": [{"nome": "energia", "valor": 25}]
+            },
+            {
+                "id": 12,
+                "status": "ruim",
+                "imagem": "./assets/icon/tiktok.svg",
+                "titulo": "Tiktok",
+                "descricao": "Assistir vídeos curtos até de madrugada.",
+                "listaBeneficios": [{"nome": "xp", "valor": 25}],
+                "listaCustos": [
+                    {"nome": "foco", "valor": 20},
+                    {"nome": "energia", "valor": 15}
+                ]
+            },
+            {
+                "id": 13,
+                "status": "boa",
+                "imagem": "./assets/icon/livro.svg",
+                "titulo": "Estudar",
+                "descricao": "Melhore seu conhecimento e habilidades",
+                "listaBeneficios": [
+                    {"nome": "vida", "valor": 10},
+                    {"nome": "foco", "valor": 25},
+                    {"nome": "xp", "valor": 12}
+                ],
+                "listaCustos": [{"nome": "energia", "valor": 18}]
+            },
+            {
+                "id": 14,
+                "status": "ruim",
+                "imagem": "./assets/icon/pizza.svg",
+                "titulo": "Comer Pizza",
+                "descricao": "Delicioso, mas não muito saudável",
+                "listaBeneficios": [
+                    {"nome": "energia", "valor": 15},
+                    {"nome": "xp", "valor": 10}
+                ],
+                "listaCustos": [{"nome": "vida", "valor": 20}]
+            },
+            {
+                "id": 15,
+                "status": "boa",
+                "imagem": "./assets/icon/cafe.svg",
+                "titulo": "Tomar Café",
+                "descricao": "Aumenta seu foco e energia",
+                "listaBeneficios": [
+                    {"nome": "energia", "valor": 10},
+                    {"nome": "foco", "valor": 15}
+                ],
+                "listaCustos": [{"nome": "vida", "valor": 5}]
+            },
+            {
+                "id": 16,
+                "status": "ruim",
+                "imagem": "./assets/icon/tv.svg",
+                "titulo": "Ficar no sofá",
+                "descricao": "Relaxar é importante, mas cuidado com o excesso",
+                "listaBeneficios": [
+                    {"nome": "vida", "valor": 5},
+                    {"nome": "energia", "valor": 10}
+                ],
+                "listaCustos": [{"nome": "foco", "valor": 17}]
+            },
+            {
+                "id": 17,
+                "status": "boa",
+                "imagem": "./assets/icon/meditacao.svg",
+                "titulo": "Meditar",
+                "descricao": "Acalma a mente, exigindo apenas um pouco de disciplina.",
+                "listaBeneficios": [
+                    {"nome": "foco", "valor": 25},
+                    {"nome": "energia", "valor": 10},
+                    {"nome": "xp", "valor": 10}
+                ],
+                "listaCustos": [{"nome": "foco", "valor": 5}]
+            }
+        ];
+
+        cartas_iniciais();
+    }
+
+    function extrairBeneficios(listaBeneficios) {
+        var vida = 0;
+        var energia = 0;
+        var foco = 0;
+        var xp = 0;
+
+        for (var i = 0; i < listaBeneficios.length; i++) {
+            var beneficio = listaBeneficios[i];
+            if (beneficio.nome === 'vida') {
+                vida = beneficio.valor;
+            } else if (beneficio.nome === 'energia') {
+                energia = beneficio.valor;
+            } else if (beneficio.nome === 'foco') {
+                foco = beneficio.valor;
+            } else if (beneficio.nome === 'xp') {
+                xp = beneficio.valor;
+            }
         }
-    ];
+        return { vida: vida, energia: energia, foco: foco, xp: xp };
+    }
+
+    function extrairCustos(listaCustos) {
+        var valores = [];
+        var textos = [];
+        for (var i = 0; i < listaCustos.length; i++) {
+            var custos = listaCustos[i];
+            valores.push(custos.valor);
+            textos.push(custos.nome);
+        }
+        return { valores: valores, textos: textos };
+    }
 
     function cartas_iniciais() {
         clearInterval(cartaAnimacaoOn);
         animacaoBotaoOn = false;
+
         let cartasAleatorias = [
             jsonCartas[Math.floor(Math.random() * jsonCartas.length)],
             jsonCartas[Math.floor(Math.random() * jsonCartas.length)],
@@ -352,22 +455,24 @@
             }
 
             let carta = cartasAleatorias[i];
+            var beneficios = extrairBeneficios(carta.listaBeneficios);
+            var custos = extrairCustos(carta.listaCustos);
 
             if (carta.status == "boa") {
-                carta_boa(carta.imagem, carta.titulo, carta.descricao, carta.beneficioVida, carta.beneficioEnergia, carta.beneficioFoco, carta.beneficioXp, carta.ListaCustoValor, carta.ListaCustoTexto);
+                carta_boa(carta.imagem, carta.titulo, carta.descricao, beneficios.vida, beneficios.energia, beneficios.foco, beneficios.xp, custos.valores, custos.textos);
             } else {
-                carta_ruim(carta.imagem, carta.titulo, carta.descricao, carta.beneficioVida, carta.beneficioEnergia, carta.beneficioFoco, carta.beneficioXp, carta.ListaCustoValor, carta.ListaCustoTexto);
+                carta_ruim(carta.imagem, carta.titulo, carta.descricao, beneficios.vida, beneficios.energia, beneficios.foco, beneficios.xp, custos.valores, custos.textos);
             }
         }
 
         container_total_opcoes.innerHTML = cardLista.join("");
     }
 
-    function carta_boa(imagem, titulo, descricao, beneficioVida, beneficioEnergia, beneficioFoco, beneficioXp, ListaCustoValor, ListaCustoTexto) {
+    function carta_boa(imagem, titulo, descricao, beneficioVida, beneficioEnergia, beneficioFoco, beneficioXp, listaCustoValor, listaCustoTexto) {
 
         cardLista.push(`
         <button class="button_opcoes" onclick='selecionar_opcao(
-        ${beneficioVida}, ${beneficioEnergia}, ${beneficioFoco}, ${beneficioXp}, ${JSON.stringify(ListaCustoValor)}, ${JSON.stringify(ListaCustoTexto)}, this
+        ${beneficioVida}, ${beneficioEnergia}, ${beneficioFoco}, ${beneficioXp}, ${JSON.stringify(listaCustoValor)}, ${JSON.stringify(listaCustoTexto)}, this
         )'>
             <div class="container_opcoes_escolha">
                 <div class="icons_opcao">
@@ -386,18 +491,18 @@
                 </div>
                 <div class="custo_opcao">
                     <p class="custo">Custo: </p>
-                    <p class="div_custo_valor">${formatar_custo(ListaCustoValor, ListaCustoTexto)}</p>
+                    <p class="div_custo_valor">${formatar_custo(listaCustoValor, listaCustoTexto)}</p>
                 </div>
             </div>
         </button>
     `);
     }
 
-    function carta_ruim(imagem, titulo, descricao, beneficioVida, beneficioEnergia, beneficioFoco, beneficioXp, ListaCustoValor, ListaCustoTexto) {
+    function carta_ruim(imagem, titulo, descricao, beneficioVida, beneficioEnergia, beneficioFoco, beneficioXp, listaCustoValor, listaCustoTexto) {
 
         cardLista.push(`
         <button class="button_opcoes" onclick='selecionar_opcao(
-        ${beneficioVida}, ${beneficioEnergia}, ${beneficioFoco}, ${beneficioXp}, ${JSON.stringify(ListaCustoValor)}, ${JSON.stringify(ListaCustoTexto)}, this
+        ${beneficioVida}, ${beneficioEnergia}, ${beneficioFoco}, ${beneficioXp}, ${JSON.stringify(listaCustoValor)}, ${JSON.stringify(listaCustoTexto)}, this
         )'>
             <div class="container_opcoes_escolha_ruim">
                 <div class="icons_opcao_ruim">
@@ -416,14 +521,14 @@
                 </div>
                 <div class="custo_opcao">
                     <p class="custo">Custo: </p>
-                    <p class="div_custo_valor">${formatar_custo(ListaCustoValor, ListaCustoTexto)}</p>
+                    <p class="div_custo_valor">${formatar_custo(listaCustoValor, listaCustoTexto)}</p>
                 </div>
             </div>
         </button>
     `);
     }
 
-    function selecionar_opcao(beneficioVida = 0, beneficioEnergia = 0, beneficioFoco = 0, beneficioXp = 0, ListaCustoValor, ListaCustoTexto, botaoParaAnimar) {
+    function selecionar_opcao(beneficioVida = 0, beneficioEnergia = 0, beneficioFoco = 0, beneficioXp = 0, listaCustoValor, listaCustoTexto, botaoParaAnimar) {
         botaoParaAnimar.style.animation = "OpcaoSelecionado 1s ease";
 
         if (animacaoBotaoOn == false) {
@@ -434,13 +539,13 @@
             foco_Atual += beneficioFoco;
             xp_Atual += beneficioXp;
 
-            for (let i = 0; i < ListaCustoTexto.length; i++) {
-                if (ListaCustoTexto[i] == "vida") {
-                    vida_Atual -= ListaCustoValor[i];
-                } else if (ListaCustoTexto[i] == "energia") {
-                    energia_Atual -= ListaCustoValor[i];
-                } else if (ListaCustoTexto[i] == "foco") {
-                    foco_Atual -= ListaCustoValor[i];
+            for (let i = 0; i < listaCustoTexto.length; i++) {
+                if (listaCustoTexto[i] == "vida") {
+                    vida_Atual -= listaCustoValor[i];
+                } else if (listaCustoTexto[i] == "energia") {
+                    energia_Atual -= listaCustoValor[i];
+                } else if (listaCustoTexto[i] == "foco") {
+                    foco_Atual -= listaCustoValor[i];
                 }
             }
 
@@ -449,7 +554,7 @@
                 return;
             }
 
-            if(level_atual == 8){
+            if (level_atual == 8) {
                 abrir_modal_vitoria();
                 return;
             }
@@ -496,12 +601,12 @@
 
     }
 
-    function formatar_custo(ListaCustoValor = [], ListaCustoTexto = []) {
-        let custos = [];
+    function formatar_custo(listaCustoValor = [], listaCustoTexto = []) {
+        var custos = [];
 
-        for (let i = 0; i < ListaCustoValor.length; i++) {
-            if (ListaCustoTexto[i]) {
-                custos.push(`${ListaCustoValor[i]} ${ListaCustoTexto[i]}`);
+        for (var i = 0; i < listaCustoValor.length; i++) {
+            if (listaCustoTexto[i]) {
+                custos.push(`${listaCustoValor[i]} ${listaCustoTexto[i]}`);
             }
         }
 
@@ -537,7 +642,7 @@
 
     atualizar_barra_progresso();
     atualizar_status_barras();
-    cartas_iniciais();
+    carregarCartas();
 </script>
 
 </html>

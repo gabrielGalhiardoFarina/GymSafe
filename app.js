@@ -17,6 +17,7 @@
 
     var usuarioRouter = require("./src/routes/usuarios");
     var questionarioRouter = require("./src/routes/questionario");
+    var cardRouter = require("./src/routes/card");
 
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
@@ -26,6 +27,7 @@
 
     app.use("/usuarios", usuarioRouter);
     app.use("/questionario", questionarioRouter);
+    app.use("/cartas", cardRouter);
     
     app.listen(PORTA_APP, function () {
         console.log(`
