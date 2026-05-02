@@ -39,207 +39,24 @@
 
     let questaoAtual = 0;
 
+    let jsonPerguntas = [];
 
-    jsonPerguntas = [
-        {
-            "pergunta": "Com que frequência você pratica exercícios físicos atualmente?",
-            "ListaOpcoes": [
-                "Nunca",
-                "1-2 vezes por semana",
-                "3-4 vezes por semana",
-                "5 ou mais vezes por semana"
-            ],
-            "tema": "Atividade Física",
-            "pontos": [10, 20, 30, 40]
-        },
-        {
-            "pergunta": "Qual é o seu nível de atividade física diária (fora dos treinos)?",
-            "ListaOpcoes": [
-                "Sedentário (passo o dia sentado)",
-                "Levemente ativo (algumas caminhadas curtas)",
-                "Moderadamente ativo (movimento constante)",
-                "Altamente ativo (trabalho físico ou movimento intenso)"
-            ],
-            "tema": "Atividade Física",
-            "pontos": [10, 20, 30, 40]
-        },
-        {
-            "pergunta": "Em média, quanto tempo dura cada sessão de exercício que você realiza?",
-            "ListaOpcoes": [
-                "Não me exercito",
-                "Menos de 30 minutos",
-                "De 30 a 60 minutos",
-                "Mais de 60 minutos"
-            ],
-            "tema": "Atividade Física",
-            "pontos": [10, 20, 30, 40]
-        },
-        {
-            "pergunta": "Com que frequência você realiza exercícios de alongamento ou flexibilidade?",
-            "ListaOpcoes": [
-                "Nunca",
-                "Raramente (1-2 vezes por mês)",
-                "Algumas vezes por semana",
-                "Diariamente"
-            ],
-            "tema": "Mobilidade",
-            "pontos": [10, 20, 30, 40]
-        },
-        {
-            "pergunta": "Com que facilidade você consegue alcançar os dedos dos pés com as pernas esticadas?",
-            "ListaOpcoes": [
-                "Não consigo passar dos joelhos",
-                "Alcanço as canelas",
-                "Toco a ponta dos dedos",
-                "Toco as mãos inteiras no chão com facilidade"
-            ],
-            "tema": "Mobilidade",
-            "pontos": [10, 20, 30, 40]
-        },
-        {
-            "pergunta": "Você costuma sentir dores ou rigidez nas articulações ao acordar ou se movimentar?",
-            "ListaOpcoes": [
-                "Frequentemente, limita meus movimentos",
-                "Às vezes, mas passa rápido",
-                "Raramente",
-                "Nunca, sinto meu corpo solto e ágil"
-            ],
-            "tema": "Mobilidade",
-            "pontos": [10, 20, 30, 40]
-        },
-        {
-            "pergunta": "Como você avalia o seu nível de estresse no dia a dia?",
-            "ListaOpcoes": [
-                "Muito alto e constante",
-                "Moderado, com picos frequentes",
-                "Leve e controlável",
-                "Baixo e tranquilo"
-            ],
-            "tema": "Saúde Mental",
-            "pontos": [10, 20, 30, 40]
-        },
-        {
-            "pergunta": "Com que frequência você dedica tempo para hobbies ou atividades que te dão prazer?",
-            "ListaOpcoes": [
-                "Nunca tenho tempo",
-                "Raramente, apenas nos finais de semana",
-                "Algumas horas durante a semana",
-                "Diariamente"
-            ],
-            "tema": "Saúde Mental",
-            "pontos": [10, 20, 30, 40]
-        },
-        {
-            "pergunta": "Como você costuma lidar com sentimentos de ansiedade ou frustração?",
-            "ListaOpcoes": [
-                "Guardo para mim ou desconto em maus hábitos",
-                "Tenho dificuldade, mas tento me acalmar",
-                "Costumo conversar com alguém sobre",
-                "Uso técnicas (respiração, meditação, etc) para gerenciar facilmente"
-            ],
-            "tema": "Saúde Mental",
-            "pontos": [10, 20, 30, 40]
-        },
-        {
-            "pergunta": "Quantas horas, em média, você dorme por noite?",
-            "ListaOpcoes": [
-                "Menos de 5 horas",
-                "Entre 5 e 6 horas",
-                "Entre 6 e 7 horas",
-                "Entre 7 e 8 horas ou mais"
-            ],
-            "tema": "Qualidade do Sono",
-            "pontos": [10, 20, 30, 40]
-        },
-        {
-            "pergunta": "Como você se sente ao acordar pela manhã?",
-            "ListaOpcoes": [
-                "Exausto, como se não tivesse dormido",
-                "Cansado, demoro a engrenar",
-                "Relativamente bem",
-                "Totalmente revigorado e com energia"
-            ],
-            "tema": "Qualidade do Sono",
-            "pontos": [10, 20, 30, 40]
-        },
-        {
-            "pergunta": "Com que facilidade você consegue adormecer ao deitar na cama?",
-            "ListaOpcoes": [
-                "Demoro mais de 1 hora rolando na cama",
-                "Demoro cerca de 30 a 60 minutos",
-                "Pego no sono em menos de 30 minutos",
-                "Adormeço em poucos minutos com facilidade"
-            ],
-            "tema": "Qualidade do Sono",
-            "pontos": [10, 20, 30, 40]
-        },
-        {
-            "pergunta": "Quantos litros de água você costuma beber por dia?",
-            "ListaOpcoes": [
-                "Menos de 1 litro",
-                "Entre 1 e 1,5 litros",
-                "Entre 1,5 e 2,5 litros",
-                "Mais de 2,5 litros"
-            ],
-            "tema": "Alimentação",
-            "pontos": [10, 20, 30, 40]
-        },
-        {
-            "pergunta": "Com que frequência você consome frutas e vegetais frescos?",
-            "ListaOpcoes": [
-                "Raramente ou nunca",
-                "1 a 2 porções por dia",
-                "3 a 4 porções por dia",
-                "5 ou mais porções todos os dias"
-            ],
-            "tema": "Alimentação",
-            "pontos": [10, 20, 30, 40]
-        },
-        {
-            "pergunta": "Com que frequência você consome alimentos ultraprocessados (fast food, refrigerantes, salgadinhos)?",
-            "ListaOpcoes": [
-                "Todos os dias",
-                "Algumas vezes por semana",
-                "Raramente (1 a 2 vezes no mês)",
-                "Nunca ou quase nunca"
-            ],
-            "tema": "Alimentação",
-            "pontos": [10, 20, 30, 40]
-        },
-        {
-            "pergunta": "Com que frequência você realiza refeições junto com sua família ou pessoas que moram com você?",
-            "ListaOpcoes": [
-                "Nunca ou raramente",
-                "Apenas nos finais de semana",
-                "Algumas vezes na semana",
-                "Quase todos os dias"
-            ],
-            "tema": "Conexão Familiar",
-            "pontos": [10, 20, 30, 40]
-        },
-        {
-            "pergunta": "Quanto tempo de qualidade você dedica exclusivamente para interagir com sua família (sem telas)?",
-            "ListaOpcoes": [
-                "Não temos esse hábito",
-                "Algumas horas por mês",
-                "Algumas horas por semana",
-                "Todos os dias temos um momento juntos"
-            ],
-            "tema": "Conexão Familiar",
-            "pontos": [10, 20, 30, 40]
-        },
-        {
-            "pergunta": "Como você avalia a comunicação e a expressão de sentimentos dentro da sua casa?",
-            "ListaOpcoes": [
-                "Não conversamos sobre sentimentos",
-                "É difícil e costuma gerar conflitos",
-                "Conversamos superficialmente",
-                "Temos um diálogo aberto, fácil e acolhedor"
-            ],
-            "tema": "Conexão Familiar",
-            "pontos": [10, 20, 30, 40]
-        }
-    ]
+    function loadPerguntas() {
+        fetch("/questionario/listar/perguntas", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(response => response.json())
+            .then(data => {
+                jsonPerguntas = data;
+                proximaPergunta();
+            })
+            .catch(error => {
+                console.error("Erro ao carregar perguntas do questionário:", error);
+                contaner_pergunta.innerHTML = "<p>Erro ao carregar perguntas. Tente novamente mais tarde.</p>";
+            });
+    }
 
     function sair() {
         if (confirm("Tem certeza que deseja sair do questionário?")) {
@@ -248,11 +65,17 @@
     }
 
     function proximaPergunta() {
-        let pergunta = jsonPerguntas[questaoAtual].pergunta;
-        let ListaOpcoes = jsonPerguntas[questaoAtual].ListaOpcoes;
         let tema = jsonPerguntas[questaoAtual].tema;
-        let pontos = jsonPerguntas[questaoAtual].pontos;
-
+        let pergunta = jsonPerguntas[questaoAtual].pergunta;
+        let listaOpcoes = jsonPerguntas[questaoAtual].listaOpcoes;
+        let ListaOpcoes = [];
+        let pontos = [];
+        
+        for (let i = 0; i < listaOpcoes.length; i++) {
+            ListaOpcoes.push(listaOpcoes[i].opcao);
+            pontos.push(listaOpcoes[i].pontos);
+        }
+        
         questaoAtual++;
         questao_atual.innerHTML = questaoAtual;
 
@@ -318,7 +141,7 @@
 
     }
 
-    proximaPergunta();
+    loadPerguntas();
 
 
 

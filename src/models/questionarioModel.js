@@ -3,7 +3,17 @@ var database = require("../database/config")
 function listarPerguntas() {
     console.log("ACESSEI O QUESTIONARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarPerguntas()");
     var instrucaoSql = `
-        SELECT * FROM pergunta join opcao on pergunta.id = opcao.fkPergunta;
+        SELECT 
+            tema.nome AS tema_nome, 
+            pergunta.id AS pergunta_id,
+            pergunta.pergunta, 
+            opcao.id AS opcao_id,
+            opcao.fkPergunta,
+            opcao.opcao, 
+            opcao.pontos
+        FROM tema
+        JOIN pergunta ON tema.id = pergunta.fkTema
+        JOIN opcao ON pergunta.id = opcao.fkPergunta;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

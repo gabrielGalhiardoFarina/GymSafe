@@ -1,10 +1,35 @@
+const { json } = require("express");
 var questionarioModel = require("../models/questionarioModel");
 var usuarioModel = require("../models/usuarioModel")
 
 function listarPerguntas(req, res) {
     questionarioModel.listarPerguntas()
         .then(function (resultado) {
-            res.json(resultado);
+            let listaPerguntas = {};
+
+            for (let i = 0; i < resultado.length; i++) {
+                let linha = resultado[i];
+
+                if (!listaPerguntas[linha.pergunta_id]) {
+                    listaPerguntas[linha.pergunta_id] = {
+                        id: linha.pergunta_id,
+                        pergunta: linha.pergunta,
+                        tema: linha.tema_nome,
+                        listaOpcoes: []
+                    };
+                }
+                let opcaoAtual = {
+                    id: linha.opcao_id,
+                    opcao: linha.opcao,
+                    pontos: linha.pontos
+                };
+
+                listaPerguntas[linha.pergunta_id].listaOpcoes.push(opcaoAtual);
+            }
+
+            let jsonResposta = Object.values(listaPerguntas);
+
+            res.json(jsonResposta);
         })
         .catch(function (erro) {
             console.log(erro);

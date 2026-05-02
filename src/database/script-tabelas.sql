@@ -69,6 +69,7 @@ CREATE TABLE
 		FOREIGN KEY (fkCard) REFERENCES card (id)
 	);
 
+
 INSERT INTO
 	tema (nome)
 VALUES
