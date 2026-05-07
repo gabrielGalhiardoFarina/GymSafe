@@ -87,7 +87,7 @@ function validarCadastro() {
         error_cadastro.innerHTML = "O nome deve ter entre 3 e 50 caracteres.";
         temErroCadastro();
     } else {
-        fetch("http://localhost:3333/usuarios/cadastrar", {
+        fetch("/usuarios/cadastrar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

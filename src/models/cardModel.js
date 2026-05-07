@@ -1,31 +1,25 @@
-var database = require('../database/config');
+var database = require("../database/config");
 
-async function listarCartas() {
-    console.log('ACESSEI O CARD MODEL');
-    var instrucao = `SELECT * FROM card;`;
-
-    var listaCards = await database.executar(instrucao);
-    var resultado = [];
+function listarCartas() {
+    var instrucaoSql = `
+            SELECT 
+                c.id AS card_id, 
+                c.status, 
+                c.imagem, 
+                c.titulo, 
+                c.descricao,
+                b.id AS beneficio_id, 
+                b.nome AS beneficio_nome, 
+                b.valor AS beneficio_valor,
+                ct.id AS custo_id, 
+                ct.nome AS custo_nome, 
+                ct.valor AS custo_valor
+            FROM card c
+            JOIN beneficio b ON c.id = b.fkCard
+            JOIN custo ct ON c.id = ct.fkCard;
+    `;
     
-    for (var i = 0; i < listaCards.length; i++) {
-        var cardBruto = listaCards[i];
-        var beneficios = await database.executar(`SELECT nome, valor FROM beneficio WHERE fkCard = ${cardBruto.id};`);
-        var custos = await database.executar(`SELECT nome, valor FROM custo WHERE fkCard = ${cardBruto.id};`);
-        
-        var card = {
-            id: cardBruto.id,
-            status: cardBruto.status,
-            imagem: cardBruto.imagem,
-            titulo: cardBruto.titulo,
-            descricao: cardBruto.descricao,
-            listaBeneficios: beneficios,
-            listaCustos: custos
-        };
-        
-        resultado.push(card);
-    }
-    
-    return resultado;
+    return database.executar(instrucaoSql);
 }
 
 module.exports = {
