@@ -20,6 +20,7 @@ html {
     scroll-behavior: smooth;
     margin: 0;
     min-height: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -28,7 +29,6 @@ body {
     font-family: 'Poppins', serif;
     margin: 0;
     padding: 0;
-
 }
 
 header {
@@ -105,8 +105,8 @@ header {
 
 #texto_descricao_home {
     width: 50dvw;
-    padding: 0 3dvw;
-    font-size: 1.3em;
+    font-size: 1em;
+    margin-bottom: 5dvh;
     color: var(--text-secundario);
 }
 
@@ -183,6 +183,7 @@ header {
     display: flex;
     flex-direction: column;
     width: 100%;
+    font-size: 0.8em;
 }
 
 .linha_valores {
@@ -190,7 +191,6 @@ header {
     flex-direction: row;
     align-items: center;
     width: 100%;
-    height: 35%;
     gap: 2dvw;
 }
 
@@ -199,19 +199,29 @@ header {
     flex-direction: column;
     text-align: center;
     width: 45%;
-    height: 30dvh;
+    height: 40dvh;
     border-radius: 20px;
     padding: 10px;
     box-shadow: var(--roxo-vibrante) 0px 0px 10px;
     border: solid 1px var(--roxo-vibrante);
 }
 
+.valores p {
+    font-size: 1.40em;
+    line-height: 1.35;
+    margin: 0.6rem 0 0 0;
+    text-align: center;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    hyphens: none;
+}
+
 .valores h3 {
     text-align: center;
     width: 100%;
     color: var(--text-branco);
-    text-shadow:
-        var(--roxo-vibrante-hover) 0px 0px 5px, var(--roxo-vibrante) 0px 0px 10px, var(--roxo-vibrante-hover) 0px 0px 20px;
+    text-shadow: var(--roxo-vibrante-hover) 0px 0px 5px, var(--roxo-vibrante) 0px 0px 10px, var(--roxo-vibrante-hover) 0px 0px 20px;
 }
 
 .valores:hover {
@@ -278,9 +288,6 @@ header {
     border-radius: 20px;
     filter: contrast(1.2);
     filter: drop-shadow(0 0 5px var(--azul-controle));
-    ;
-    ;
-
 }
 
 #container_comentarios {
@@ -420,4 +427,319 @@ footer ul li a:hover {
         box-shadow: var(--roxo-vibrante) 3px 3px 10px;
     }
 
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    body {
+        background-color: var(--bg-secundario);
+    }
+
+    header {
+        height: 12dvh;
+        min-height: 80px;
+    }
+
+    #texto_menu {
+        font-size: 1.2em;
+        margin-left: 3dvw;
+    }
+
+    #lista_menu {
+        gap: 1.5dvw;
+        margin-right: 3dvw;
+    }
+
+    #lista_menu li a {
+        font-size: 13px;
+    }
+
+    #lista_menu li a#selecionada {
+        font-size: 16px;
+    }
+
+    #home {
+        height: 88dvh;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #container_home {
+        width: 90dvw;
+        padding: 2dvw;
+    }
+
+    #texto_cta {
+        font-size: 2.8rem;
+        margin-bottom: 1rem;
+    }
+
+    #texto_descricao_home {
+        width: 90dvw;
+        padding: 0;
+        font-size: 1rem;
+    }
+
+    #container_personagem_home {
+        display: none;
+    }
+
+    #sobre {
+        height: auto;
+        flex-direction: column;
+        padding: 4dvh 3dvw;
+    }
+
+    #container_sobre {
+        flex-direction: column;
+        gap: 3dvw;
+        align-items: center;
+    }
+
+    #container_texto_sobre {
+        width: 100%;
+    }
+
+    #container_texto_sobre h1 {
+        font-size: 2.2em;
+        margin-top: 2dvh;
+    }
+
+    #container_texto_sobre p {
+        font-size: 1em;
+    }
+
+    #container_valores_sobre {
+        width: 100%;
+        gap: 2dvh;
+    }
+
+    .linha_valores {
+        flex-direction: column;
+        height: auto;
+        gap: 2dvh;
+    }
+
+    .valores {
+        width: 100%;
+        height: auto;
+        padding: 2dvh;
+    }
+
+    .valores h3 {
+        font-size: 1.1em;
+    }
+
+    #quem_sou {
+        height: auto;
+        flex-direction: column;
+        gap: 3dvw;
+        padding: 4dvh 3dvw;
+    }
+
+    #container_imagem_quem_sou img {
+        width: 90dvw;
+        height: 50dvh;
+    }
+
+    #relacionamentos {
+        height: auto;
+        flex-direction: column;
+        padding: 4dvh 3dvw;
+    }
+
+    #container_relacionamentos h1 {
+        font-size: 2.5em;
+        margin: 2dvh 0 1dvh 0;
+    }
+
+    #container_relacionamentos p {
+        width: 90dvw;
+        font-size: 0.95em;
+    }
+
+    #container_imagens {
+        flex-direction: column;
+        margin-top: 3dvh;
+        gap: 3dvw;
+    }
+
+    #container_imagens img {
+        width: 90dvw;
+        height: 45dvh;
+    }
+
+    #container_comentarios {
+        width: 90dvw;
+        padding: 2.5dvw;
+        margin-top: 3dvh;
+    }
+
+    #container_comentarios p {
+        font-size: 1em;
+    }
+
+    footer {
+        height: auto;
+        padding: 3dvh 0;
+    }
+
+    #container_footer {
+        flex-direction: column;
+        gap: 3dvh;
+        padding: 2dvh;
+    }
+
+    #logo_footer {
+        width: 15dvw;
+        height: 8dvh;
+        font-size: 1.5em;
+    }
+
+    #texto_footer {
+        font-size: 1em;
+    }
+
+    footer ul li a {
+        font-size: 0.95em;
+    }
+
+    #redes_sociais {
+        gap: 1.5dvw;
+    }
+
+    #redes_sociais a img {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 767px) {
+
+    body {
+        background-color: var(--bg-secundario);
+    }
+
+    header {
+        flex-direction: column;
+        gap: 0;
+        margin: 0;
+        height: fit-content;
+        min-height: 100px;
+    }
+
+    #texto_menu {
+        margin: 0;
+    }
+
+    nav {
+        width: 100%;
+    }
+
+    #lista_menu {
+        margin: 0;
+        padding: 0;
+
+    }
+
+    #lista_menu li a {
+        font-size: 10px;
+    }
+
+    #texto_cta {
+        font-size: 2.0rem;
+    }
+
+    #home {
+        flex-direction: column;
+        height: fit-content;
+        align-items: center;
+        justify-content: center;
+        width: 100%
+    }
+
+    #container_personagem_home {
+        display: none;
+    }
+
+    #sobre {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: fit-content;
+        padding: 5dvh;
+    }
+
+    #container_sobre {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+    }
+
+    #container_texto_sobre h1{
+        width: 100%;
+        margin-top: 0;
+
+    }
+
+    #container_valores_sobre {
+        width: 100%;
+        font-size: 0.8em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .linha_valores {
+        align-items: center;
+        justify-content: center;
+        height: fit-content;
+    }
+
+    .valores {
+        width: 25dvw;
+        height: 30dvh;
+        padding: 2dvh;
+    }
+
+    #quem_sou {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: fit-content;
+        padding: 5dvh;
+    }
+
+    #relacionamentos {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: fit-content;
+        padding: 5dvh;
+    }
+
+    #container_relacionamentos {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: fit-content;
+    }
+
+    #container_relacionamentos h1 {
+        font-size: 2.5em;
+    }
+
+    #footer {
+        height: 150dvh;
+        background-color: var(--bg-secundario);
+    }
+
+    #container_footer {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 50dvh;
+    }
 }
