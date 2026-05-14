@@ -45,7 +45,7 @@ function cadastrarPontos(req, res) {
     var pontos_qualidade_sono = req.body.pontosQualidadeSonoServer;
     var pontos_alimentacao = req.body.pontosAlimentacaoServer;
     var pontos_conexao_familiar = req.body.pontosConexaoFamiliarServer;
-    var email = req.body.emailServer;
+    var idUsuario = req.body.idUsuarioServer;
 
     if (pontos_atividade_fisica == undefined) {
         res.status(400).send("Seus pontos de atividade física estão undefined!");
@@ -59,86 +59,50 @@ function cadastrarPontos(req, res) {
         res.status(400).send("Seus pontos de alimentação estão undefined!");
     } else if (pontos_conexao_familiar == undefined) {
         res.status(400).send("Seus pontos de conexão familiar estão undefined!");
-    } else if (email == undefined) {
-        res.status(400).send("Seu email está undefined!");
-    } else {
-
-        usuarioModel.pegarIdPorEmail(email)
+    } else if (idUsuario == undefined) {
+        res.status(400).send("O ID do usuário está undefined!");
+    }
+    else {
+        questionarioModel.cadastrarPontos(
+            pontos_atividade_fisica,
+            pontos_mobilidade,
+            pontos_saude_mental,
+            pontos_qualidade_sono,
+            pontos_alimentacao,
+            pontos_conexao_familiar,
+            idUsuario
+        )
             .then(
-                function (resultado) {
-                    console.log(`\nResultados encontrados: ${resultado.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultado)}`);
-                    if (resultado.length == 1) {
-                        var idUsuario = resultado[0].id;
-                        questionarioModel.casdastrarPontos(
-                            pontos_atividade_fisica,
-                            pontos_mobilidade,
-                            pontos_saude_mental,
-                            pontos_qualidade_sono,
-                            pontos_alimentacao,
-                            pontos_conexao_familiar,
-                            idUsuario
-                        )
-                            .then(
-                                function (resultadoCadastrarPontos) {
-                                    res.json(resultadoCadastrarPontos);
-                                }
-                            ).catch(
-                                function (erro) {
-                                    console.log(erro);
-                                    console.log("\nHouve um erro ao cadastrar os pontos! Erro: ", erro.sqlMessage);
-                                    res.status(500).json(erro.sqlMessage);
-                                }
-                            );
-                    } else if (resultado.length == 0) {
-                        res.status(403).send("Email inválido!");
-                    } else {
-                        res.status(403).send("Mais de um usuário com o mesmo email!");
-                    }
-
+                function (resultadoCadastrarPontos) {
+                    res.json(resultadoCadastrarPontos);
                 }
             ).catch(
                 function (erro) {
                     console.log(erro);
-                    console.log("\nHouve um erro ao buscar o id do usuário! Erro: ", erro.sqlMessage);
+                    console.log("\nHouve um erro ao cadastrar os pontos! Erro: ", erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
                 }
             );
-    }
 
+    }
 }
 
 function listarPontos(req, res) {
-    var email = req.body.emailServer;
+    var fkUsuario = req.params.idUsuario;
+    let limiteLinhas = 6;
 
-    if (email == undefined) {
-        res.status(400).send("Seu email está undefined!");
+    if (fkUsuario == undefined) {
+        res.status(400).send("O ID do usuário está undefined!");
     } else {
-        usuarioModel.pegarIdPorEmail(email)
+        questionarioModel.listarPontos(fkUsuario, limiteLinhas)
             .then(
-                function (resultado) {
-                    console.log(`\nResultados encontrados: ${resultado.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultado)}`);
-                    if (resultado.length == 1) {
-                        var idUsuario = resultado[0].id;
-                        questionarioModel.listarPontos(idUsuario)
-                            .then(
-                                function (resultadoListar) {
-                                    res.json(resultadoListar);
-                                }
-                            ).catch(
-                                function (erro) {
-                                    console.log(erro);
-                                    console.log("\nHouve um erro ao listar os questionários! Erro: ", erro.sqlMessage);
-                                    res.status(500).json(erro.sqlMessage);
-                                }
-                            );
-                    }
+                function (resultadoListar) {
+                    res.json(resultadoListar);
                 }
             ).catch(
                 function (erro) {
                     console.log(erro);
-                    console.log("\nHouve um erro ao buscar o id do usuário! Erro: ", erro.sqlMessage);
+                    console.log("\nHouve um erro ao listar os pontos! Erro: ", erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
                 }
             );

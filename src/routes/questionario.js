@@ -12,7 +12,7 @@ router.post('/cadastrar/pontos', function (req, res) {
 });
 
 
-router.post('/listar/pontos', function (req, res) {
+router.get('/listar/pontos/:idUsuario', function (req, res) {
     questionarioController.listarPontos(req, res);
 });
 

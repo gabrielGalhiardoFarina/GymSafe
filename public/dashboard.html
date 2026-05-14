@@ -82,70 +82,31 @@
     </main>
 
     <script>
-        var dados_pontos = [];
         var grafico_barras_chart = null;
         var maximo_pontos = 720;
         var alerta_limite = 48;
 
         function carregar_pontos() {
-            var email_usuario = sessionStorage.getItem('EMAIL_USUARIO');
+            var id_usuario = sessionStorage.getItem("ID_USUARIO");
 
-            fetch('/questionario/listar/pontos', {
-                method: 'POST',
+            fetch(`/questionario/listar/pontos/${id_usuario}`, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    emailServer: email_usuario
-                })
+                }
             })
                 .then(function (response) {
                     return response.json();
                 })
                 .then(function (data) {
-                    dados_pontos = data;
-                    var pontos_normalizados = normalizar_pontos(dados_pontos);
-
-                    atualizar_kpis(pontos_normalizados);
-                    atualizar_graficos(pontos_normalizados);
-                    atualizar_alertas(pontos_normalizados);
-
+                    atualizar_kpis(data);
+                    atualizar_graficos(data);
+                    atualizar_alertas(data);
                 })
                 .catch(function (erro) {
                     console.error('Erro ao pegar pontos do questionário:', erro);
-                    dados_pontos = [];
-                    atualizar_kpis([]);
-                    atualizar_graficos([]);
-                    atualizar_alertas([]);
                     status_carregamento.innerHTML = 'Erro ao carregar';
                 });
-        }
-
-        function normalizar_pontos(lista_pontos) {
-            var resultado = [];
-
-            let idUsuario = sessionStorage.getItem("ID_USUARIO");
-
-            for (var i = 0; i < lista_pontos.length; i++) {
-                var item = lista_pontos[i];
-                var nome;
-                var valor;
-
-                if (item && typeof item == 'object') {
-                    if (item.fkUsuario != idUsuario) {
-                        continue;
-                    }
-                    nome = item.nome;
-                    valor = Number(item.valor);
-                }
-
-                resultado.push({
-                    nome: nome,
-                    valor: valor
-                });
-            }
-
-            return resultado;
         }
 
         function atualizar_kpis(lista_pontos) {
@@ -232,7 +193,7 @@
             var linhaLimite = Array(nomes.length).fill(limiteAlerta); // Colocando o mesmo número de itens no array da linha
 
             grafico_barras_chart = new Chart(ctx, {
-                type: 'bar', 
+                type: 'bar',
                 data: {
                     labels: nomes,
                     datasets: [
@@ -245,19 +206,19 @@
                             borderDash: [5, 5], // Deixa a linha tracejada
                             pointRadius: 0, // Esconde as bolinhas dos pontos da linha
                             fill: false,
-                            order: 0 
+                            order: 0
                         },
                         {
                             type: 'bar',
                             label: 'Pontos',
                             data: valores,
-                            backgroundColor: coresFundo, 
+                            backgroundColor: coresFundo,
                             borderColor: coresBorda,
                             borderWidth: 2,
                             borderRadius: 8,
                             borderSkipped: false, // Deixa a borda em todos os lados
                             barPercentage: 0.7, // Deixa as barras um pouco mais finas
-                            order: 1 
+                            order: 1
                         }
                     ]
                 },
@@ -333,7 +294,7 @@
                 return;
             }
 
-            if(alertas.length > 0) {
+            if (alertas.length > 0) {
                 var html_alertas = '';
                 for (var j = 0; j < alertas.length; j++) {
                     var alerta = alertas[j];
@@ -348,7 +309,7 @@
                         </article>
                     `;
                 }
-                
+
                 lista_alertas.innerHTML = html_alertas;
             }
         }

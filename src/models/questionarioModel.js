@@ -19,12 +19,8 @@ function listarPerguntas() {
     return database.executar(instrucaoSql);
 }
 
-function casdastrarPontos(pontos_atividade_fisica, pontos_mobilidade, pontos_saude_mental, pontos_qualidade_sono, pontos_alimentacao, pontos_conexao_familiar, idUsuario) {
+function cadastrarPontos(pontos_atividade_fisica, pontos_mobilidade, pontos_saude_mental, pontos_qualidade_sono, pontos_alimentacao, pontos_conexao_familiar, idUsuario) {
     console.log("ACESSEI O QUESTIONARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarPontos():", pontos_atividade_fisica, pontos_mobilidade, pontos_saude_mental, pontos_qualidade_sono, pontos_alimentacao, pontos_conexao_familiar, idUsuario);
-    var limparPontos = `
-        DELETE FROM pontos
-        WHERE fkUsuario = ${idUsuario};
-    `;
 
     var instrucaoSql = `
         INSERT INTO pontos (nome, valor, fkUsuario)
@@ -36,26 +32,24 @@ function casdastrarPontos(pontos_atividade_fisica, pontos_mobilidade, pontos_sau
             ('alimentacao', ${pontos_alimentacao}, ${idUsuario}),
             ('conexao_familiar', ${pontos_conexao_familiar}, ${idUsuario});
     `;
-
-    console.log("Executando a instrução SQL: \n" + limparPontos + "\n" + instrucaoSql);
-    return database.executar(limparPontos)
-        .then(function () {
-            return database.executar(instrucaoSql);
-        });
+    
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+        
 }
 
-function listarPontos(idUsuario) {
+function listarPontos(fkUsuario, limiteLinhas) {
     console.log("ACESSEI O QUESTIONARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarPontos()");
     var instrucaoSql = `
-        SELECT * FROM pontos
-        WHERE fkUsuario = ${idUsuario};
+        SELECT nome, valor FROM pontos
+        WHERE fkUsuario = ${fkUsuario} order by id desc limit ${limiteLinhas};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
 module.exports = {
-    casdastrarPontos,
+    cadastrarPontos,
     listarPerguntas,
     listarPontos
 };
