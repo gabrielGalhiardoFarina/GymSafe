@@ -128,7 +128,10 @@ header {
     justify-content: center;
     width: 45dvw;
     height: 100%;
-    background-image: url(../assets/imgs/personagem/titoForte.svg);
+    background-image: url(../assets/imgs/logo.svg);
+    filter:
+    contrast(0.7);
+    
     background-size: contain;
     background-repeat: no-repeat;
 }

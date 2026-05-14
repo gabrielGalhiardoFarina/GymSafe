@@ -257,7 +257,7 @@
       flex-direction: column;
       width: 100%;
       border-radius: 20px;
-      padding: 8% 2.5%;
+      padding-top: 100px;
       background: linear-gradient(to bottom, var(--bg-principal), var(--bg-roxo), var(--bg-principal));
       border: 1px solid var(--roxo-vibrante);
       box-shadow: var(--roxo-vibrante) 0px 0px 5px;
@@ -273,7 +273,7 @@
       width: 100%;
       min-width: 100%;
       border-radius: 20px;
-      padding: 8% 2.5%;
+      padding-top: 100px;
       background: linear-gradient(to bottom, var(--bg-secundario), var(--bg-vermelho), var(--bg-secundario));
       border: 1px solid var(--vermelho);
       box-shadow: var(--vermelho) 0px 0px 5px;
@@ -299,6 +299,8 @@
       justify-content: center;
       flex-direction: row;
       gap: 2dvw;
+      height: 60dvh;
+      width: 100%;
 
   }
 
