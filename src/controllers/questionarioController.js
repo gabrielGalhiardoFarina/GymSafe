@@ -38,63 +38,35 @@ function listarPerguntas(req, res) {
         });
 }
 
-function cadastrarPontos(req, res) {
-    var pontos_atividade_fisica = req.body.pontosAtividadeFisicaServer;
-    var pontos_mobilidade = req.body.pontosMobilidadeServer;
-    var pontos_saude_mental = req.body.pontosSaudeMentalServer;
-    var pontos_qualidade_sono = req.body.pontosQualidadeSonoServer;
-    var pontos_alimentacao = req.body.pontosAlimentacaoServer;
-    var pontos_conexao_familiar = req.body.pontosConexaoFamiliarServer;
-    var idUsuario = req.body.idUsuarioServer;
+function cadastrarRespostas(req, res) {
+    var fkUsuario = req.params.idUsuario;
+    var listaFkOpcao = req.body.ListaFkOpcaoServer;
 
-    if (pontos_atividade_fisica == undefined) {
-        res.status(400).send("Seus pontos de atividade física estão undefined!");
-    } else if (pontos_mobilidade == undefined) {
-        res.status(400).send("Seus pontos de mobilidade estão undefined!");
-    } else if (pontos_saude_mental == undefined) {
-        res.status(400).send("Seus pontos de saúde mental estão undefined!");
-    } else if (pontos_qualidade_sono == undefined) {
-        res.status(400).send("Seus pontos de qualidade de sono estão undefined!");
-    } else if (pontos_alimentacao == undefined) {
-        res.status(400).send("Seus pontos de alimentação estão undefined!");
-    } else if (pontos_conexao_familiar == undefined) {
-        res.status(400).send("Seus pontos de conexão familiar estão undefined!");
-    } else if (idUsuario == undefined) {
+    if (fkUsuario == undefined) {
         res.status(400).send("O ID do usuário está undefined!");
-    }
-    else {
-        questionarioModel.cadastrarPontos(
-            pontos_atividade_fisica,
-            pontos_mobilidade,
-            pontos_saude_mental,
-            pontos_qualidade_sono,
-            pontos_alimentacao,
-            pontos_conexao_familiar,
-            idUsuario
-        )
-            .then(
-                function (resultadoCadastrarPontos) {
-                    res.json(resultadoCadastrarPontos);
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log("\nHouve um erro ao cadastrar os pontos! Erro: ", erro.sqlMessage);
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
-
+    } else if (listaFkOpcao == undefined) {
+        res.status(400).send("A lista de opções está undefined!");
+    } else {
+        questionarioModel.cadastrarRespostas(fkUsuario, listaFkOpcao)
+            .then(function (resultado) {
+                res.json(resultado);
+            })
+            .catch(function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao cadastrar as respostas! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            });
     }
 }
 
-function listarPontos(req, res) {
+function listarRespostas(req, res) {
     var fkUsuario = req.params.idUsuario;
-    let limiteLinhas = 6;
+    let limiteLinhas = 18;
 
     if (fkUsuario == undefined) {
         res.status(400).send("O ID do usuário está undefined!");
     } else {
-        questionarioModel.listarPontos(fkUsuario, limiteLinhas)
+        questionarioModel.listarRespostas(fkUsuario, limiteLinhas)
             .then(
                 function (resultadoListar) {
                     res.json(resultadoListar);
@@ -102,7 +74,7 @@ function listarPontos(req, res) {
             ).catch(
                 function (erro) {
                     console.log(erro);
-                    console.log("\nHouve um erro ao listar os pontos! Erro: ", erro.sqlMessage);
+                    console.log("\nHouve um erro ao listar as respostas! Erro: ", erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
                 }
             );
@@ -111,6 +83,6 @@ function listarPontos(req, res) {
 
 module.exports = {
     listarPerguntas,
-    cadastrarPontos,
-    listarPontos
+    cadastrarRespostas,
+    listarRespostas
 };

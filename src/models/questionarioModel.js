@@ -19,18 +19,30 @@ function listarPerguntas() {
     return database.executar(instrucaoSql);
 }
 
-function cadastrarPontos(pontos_atividade_fisica, pontos_mobilidade, pontos_saude_mental, pontos_qualidade_sono, pontos_alimentacao, pontos_conexao_familiar, idUsuario) {
-    console.log("ACESSEI O QUESTIONARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarPontos():", pontos_atividade_fisica, pontos_mobilidade, pontos_saude_mental, pontos_qualidade_sono, pontos_alimentacao, pontos_conexao_familiar, idUsuario);
+function cadastrarRespostas(fkUsuario, fkOpcao) {
+    console.log("ACESSEI O QUESTIONARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarRespostas():", fkUsuario, fkOpcao);
 
     var instrucaoSql = `
-        INSERT INTO pontos (nome, valor, fkUsuario)
-        VALUES
-            ('atividade_fisica', ${pontos_atividade_fisica}, ${idUsuario}),
-            ('mobilidade', ${pontos_mobilidade}, ${idUsuario}),
-            ('saude_mental', ${pontos_saude_mental}, ${idUsuario}),
-            ('qualidade_sono', ${pontos_qualidade_sono}, ${idUsuario}),
-            ('alimentacao', ${pontos_alimentacao}, ${idUsuario}),
-            ('conexao_familiar', ${pontos_conexao_familiar}, ${idUsuario});
+        insert into resposta (fkUsuario, fkOpcao)
+        values
+        (${fkUsuario}, ${fkOpcao[0]}),
+        (${fkUsuario}, ${fkOpcao[1]}),
+        (${fkUsuario}, ${fkOpcao[2]}),
+        (${fkUsuario}, ${fkOpcao[3]}),
+        (${fkUsuario}, ${fkOpcao[4]}),
+        (${fkUsuario}, ${fkOpcao[5]}),
+        (${fkUsuario}, ${fkOpcao[6]}),
+        (${fkUsuario}, ${fkOpcao[7]}),
+        (${fkUsuario}, ${fkOpcao[8]}),
+        (${fkUsuario}, ${fkOpcao[9]}),
+        (${fkUsuario}, ${fkOpcao[10]}),
+        (${fkUsuario}, ${fkOpcao[11]}),
+        (${fkUsuario}, ${fkOpcao[12]}),
+        (${fkUsuario}, ${fkOpcao[13]}),
+        (${fkUsuario}, ${fkOpcao[14]}),	
+        (${fkUsuario}, ${fkOpcao[15]}),
+        (${fkUsuario}, ${fkOpcao[16]}),
+        (${fkUsuario}, ${fkOpcao[17]});
     `;
     
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -38,18 +50,28 @@ function cadastrarPontos(pontos_atividade_fisica, pontos_mobilidade, pontos_saud
         
 }
 
-function listarPontos(fkUsuario, limiteLinhas) {
-    console.log("ACESSEI O QUESTIONARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarPontos()");
+function listarRespostas(fkUsuario, limiteLinhas) {
+    console.log("ACESSEI O QUESTIONARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarRespostas()");
     var instrucaoSql = `
-        SELECT nome, valor FROM pontos
-        WHERE fkUsuario = ${fkUsuario} order by id desc limit ${limiteLinhas};
+         SELECT respGrup.nome AS Tema, SUM(respGrup.pontos) AS Total_Pontos
+            FROM (
+                SELECT t.nome, o.pontos
+                FROM resposta r
+                JOIN opcao o ON o.id = r.fkOpcao
+                JOIN pergunta p ON p.id = o.fkPergunta
+                JOIN tema t ON t.id = p.fkTema
+                WHERE r.fkUsuario = ${fkUsuario}
+                ORDER BY r.id DESC
+                LIMIT ${limiteLinhas}
+            ) AS respGrup
+            GROUP BY respGrup.nome;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
 module.exports = {
-    cadastrarPontos,
+    cadastrarRespostas,
     listarPerguntas,
-    listarPontos
+    listarRespostas
 };

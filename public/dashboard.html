@@ -82,14 +82,14 @@
     </main>
 
     <script>
-        var grafico_barras_chart = null;
-        var maximo_pontos = 720;
-        var alerta_limite = 48;
+        let grafico_barras_chart = null;
+        let maximo_pontos = 720;
+        let alerta_limite = 48;
 
         function carregar_pontos() {
-            var id_usuario = sessionStorage.getItem("ID_USUARIO");
+            let id_usuario = sessionStorage.getItem("ID_USUARIO");
 
-            fetch(`/questionario/listar/pontos/${id_usuario}`, {
+            fetch(`/questionario/listar/respostas/${id_usuario}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -115,34 +115,34 @@
         }
 
         function atualizar_kpis(lista_pontos) {
-            var total = 0;
-            var maiorValor = 0;
-            var maiorNome = '-';
-            var areas_em_alerta = 0;
+            let total = 0;
+            let maiorValor = 0;
+            let maiorNome = '-';
+            let areas_em_alerta = 0;
 
-            for (var i = 0; i < lista_pontos.length; i++) {
-                var ponto = lista_pontos[i];
-                total += ponto.valor;
+            for (let i = 0; i < lista_pontos.length; i++) {
+                let ponto = lista_pontos[i];
+                total += Number(ponto.Total_Pontos);
 
-                if (ponto.valor <= alerta_limite) {
+                if (ponto.Total_Pontos <= alerta_limite) {
                     areas_em_alerta++;
                 }
 
-                if (ponto.valor > maiorValor) {
-                    maiorValor = ponto.valor;
-                    maiorNome = ponto.nome;
+                if (ponto.Total_Pontos > maiorValor) {
+                    maiorValor = ponto.Total_Pontos;
+                    maiorNome = ponto.Tema;
                 }
             }
 
-            var media = lista_pontos.length > 0 ? (total / lista_pontos.length) : 0;
+            let media = lista_pontos.length > 0 ? (total / lista_pontos.length) : 0;
 
             kpi_total_pontos.innerHTML = total;
             kpi_maior_area.innerHTML = maiorNome;
             kpi_media_geral.innerHTML = media.toFixed(1);
 
-            var ids_media_geral = ['kpi_media_geral_titulo', 'kpi_media_geral'];
-            for (var i = 0; i < ids_media_geral.length; i++) {
-                var elemento_media = document.getElementById(ids_media_geral[i]);
+            let ids_media_geral = ['kpi_media_geral_titulo', 'kpi_media_geral'];
+            for (let i = 0; i < ids_media_geral.length; i++) {
+                let elemento_media = document.getElementById(ids_media_geral[i]);
                 if (elemento_media) {
                     elemento_media.style.color = media < 60 ? '#FF4B6A' : '';
                 }
@@ -150,9 +150,9 @@
 
             kpi_areas_alerta.innerHTML = areas_em_alerta;
 
-            var ids_areas_alerta = ['kpi_areas_alerta_titulo', 'kpi_areas_alerta'];
-            for (var i = 0; i < ids_areas_alerta.length; i++) {
-                var elemento_alerta = document.getElementById(ids_areas_alerta[i]);
+            let ids_areas_alerta = ['kpi_areas_alerta_titulo', 'kpi_areas_alerta'];
+            for (let i = 0; i < ids_areas_alerta.length; i++) {
+                let elemento_alerta = document.getElementById(ids_areas_alerta[i]);
                 if (elemento_alerta) {
                     elemento_alerta.style.color = areas_em_alerta > 0 ? '#FF4B6A' : '';
                 }
@@ -160,23 +160,23 @@
         }
 
         function atualizar_graficos(lista_pontos) {
-            var nomes = [];
-            var valores = [];
+            let nomes = [];
+            let valores = [];
 
-            for (var i = 0; i < lista_pontos.length; i++) {
-                nomes.push(lista_pontos[i].nome);
-                valores.push(lista_pontos[i].valor);
+            for (let i = 0; i < lista_pontos.length; i++) {
+                nomes.push(lista_pontos[i].Tema);
+                valores.push(lista_pontos[i].Total_Pontos);
             }
 
             if (grafico_barras_chart) {
                 grafico_barras_chart.destroy();
             }
 
-            var ctx = document.getElementById('grafico_barras').getContext('2d');
+            let ctx = document.getElementById('grafico_barras').getContext('2d');
 
-            var limiteAlerta = 48;
+            let limiteAlerta = 48;
 
-            var paletaOriginal = [
+            let paletaOriginal = [
                 'rgba(116, 235, 175, 0.85)', // Verde
                 'rgba(94, 100, 255, 0.85)',  // Azul 
                 'rgba(255, 193, 92, 0.85)',  // Amarelo
@@ -186,16 +186,16 @@
                 'rgba(255, 159, 64, 0.85)'   // Laranja
             ];
 
-            var coresFundo = [];
-            var coresBorda = [];
+            let coresFundo = [];
+            let coresBorda = [];
 
             for (let i = 0; i < valores.length; i++) {
-                var valor = valores[i];
+                let valor = valores[i];
                 coresFundo.push(valor < limiteAlerta ? 'rgba(255, 69, 58, 0.9)' : paletaOriginal[i]);
                 coresBorda.push(valor < limiteAlerta ? '#FF3B30' : '#FFFFFF');
             }
 
-            var linhaLimite = Array(nomes.length).fill(limiteAlerta); // Colocando o mesmo número de itens no array da linha
+            let linhaLimite = Array(nomes.length).fill(limiteAlerta); // Colocando o mesmo número de itens no array da linha
 
             grafico_barras_chart = new Chart(ctx, {
                 type: 'bar',
@@ -271,17 +271,17 @@
         }
 
         function atualizar_alertas(lista_pontos) {
-            var alertas = [];
+            let alertas = [];
 
-            for (var i = 0; i < lista_pontos.length; i++) {
-                var ponto = lista_pontos[i];
+            for (let i = 0; i < lista_pontos.length; i++) {
+                let ponto = lista_pontos[i];
 
-                if (ponto.valor <= alerta_limite) {
+                if (ponto.Total_Pontos <= alerta_limite) {
                     alertas.push({
                         nivel: 'atencao',
-                        titulo: ponto.nome,
+                        titulo: ponto.Tema,
                         mensagem: 'Área em atenção: vale revisar hábitos e rotina.',
-                        valor: ponto.valor
+                        valor: ponto.Total_Pontos
                     });
                 }
             }
@@ -300,9 +300,9 @@
             }
 
             if (alertas.length > 0) {
-                var html_alertas = '';
-                for (var j = 0; j < alertas.length; j++) {
-                    var alerta = alertas[j];
+                let html_alertas = '';
+                for (let j = 0; j < alertas.length; j++) {
+                    let alerta = alertas[j];
                     html_alertas += `
                         <article class="card_alerta alerta_${alerta.nivel}">
                             <div>

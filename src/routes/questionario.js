@@ -7,13 +7,13 @@ router.get('/listar/perguntas', function (req, res) {
     questionarioController.listarPerguntas(req, res);
 });
 
-router.post('/cadastrar/pontos', function (req, res) {
-    questionarioController.cadastrarPontos(req, res);
+router.post('/cadastrar/respostas/:idUsuario', function (req, res) {
+    questionarioController.cadastrarRespostas(req, res);
 });
 
 
-router.get('/listar/pontos/:idUsuario', function (req, res) {
-    questionarioController.listarPontos(req, res);
+router.get('/listar/respostas/:idUsuario', function (req, res) {
+    questionarioController.listarRespostas(req, res);
 });
 
     

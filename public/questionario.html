@@ -30,13 +30,7 @@
 </body>
 <script>
 
-    let pontosAtividadeFisica = 0;
-    let pontosMobilidade = 0;
-    let pontosSaudeMental = 0;
-    let pontosQualidadeSono = 0;
-    let pontosAlimentacao = 0;
-    let pontosConexaoFamiliar = 0;
-
+    let listaFkOpcao = [];
     let questaoAtual = 0;
 
     let jsonPerguntas = [];
@@ -60,44 +54,41 @@
 
     function proximaPergunta() {
 
+        let id_usuario = sessionStorage.getItem("ID_USUARIO");
 
         if (questaoAtual == jsonPerguntas.length) {
-            fetch("/questionario/cadastrar/pontos", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    pontosAtividadeFisicaServer: pontosAtividadeFisica,
-                    pontosMobilidadeServer: pontosMobilidade,
-                    pontosSaudeMentalServer: pontosSaudeMental,
-                    pontosQualidadeSonoServer: pontosQualidadeSono,
-                    pontosAlimentacaoServer: pontosAlimentacao,
-                    pontosConexaoFamiliarServer: pontosConexaoFamiliar,
-                    idUsuarioServer: sessionStorage.getItem("ID_USUARIO")
-                })
-            }).then(resposta => {
-                if (resposta.ok) {
-                    console.log("Pontos cadastrados com sucesso!");
-                    window.location.href = "./dashboard.html";
-                } else {
-                    console.error("Erro ao cadastrar os pontos.");
-                }
-            }).catch(erro => {
-                console.error("Erro na requisição:", erro);
-            });
-            return;
+            
+                fetch(`/questionario/cadastrar/respostas/${id_usuario}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        ListaFkOpcaoServer: listaFkOpcao
+                    })
+                }).then(resposta => {
+                    if (resposta.ok) {
+                        console.log("listaIds cadastrados com sucesso!");
+                        window.location.href = "./dashboard.html";
+                    } else {
+                        console.error("Erro ao cadastrar os listaIds.");
+                    }
+                }).catch(erro => {
+                    console.error("Erro na requisição:", erro);
+                });
+                return;
+
+            
         }
 
-        let tema = jsonPerguntas[questaoAtual].tema;
         let pergunta = jsonPerguntas[questaoAtual].pergunta;
         let listaOpcoes = jsonPerguntas[questaoAtual].listaOpcoes;
         let ListaOpcoes = [];
-        let pontos = [];
+        let listaIds = [];
 
         for (let i = 0; i < listaOpcoes.length; i++) {
             ListaOpcoes.push(listaOpcoes[i].opcao);
-            pontos.push(listaOpcoes[i].pontos);
+            listaIds.push(listaOpcoes[i].id);
         }
 
         questaoAtual++;
@@ -106,30 +97,17 @@
         contaner_pergunta.innerHTML = `
                 <h1 id="pergunta">${pergunta}</h1>
                 <div id="opcoes_questionario">
-                    <button class="opcao" id="opcao1" onclick="selecionarOpcao(${pontos[0]}, '${tema}')">${ListaOpcoes[0]}</button>
-                    <button class="opcao" id="opcao2" onclick="selecionarOpcao(${pontos[1]}, '${tema}')">${ListaOpcoes[1]}</button>
-                    <button class="opcao" id="opcao3" onclick="selecionarOpcao(${pontos[2]}, '${tema}')">${ListaOpcoes[2]}</button>
-                    <button class="opcao" id="opcao4" onclick="selecionarOpcao(${pontos[3]}, '${tema}')">${ListaOpcoes[3]}</button>
+                    <button class="opcao" id="opcao1" onclick="selecionarOpcao(${listaIds[0]})">${ListaOpcoes[0]}</button>
+                    <button class="opcao" id="opcao2" onclick="selecionarOpcao(${listaIds[1]})">${ListaOpcoes[1]}</button>
+                    <button class="opcao" id="opcao3" onclick="selecionarOpcao(${listaIds[2]})">${ListaOpcoes[2]}</button>
+                    <button class="opcao" id="opcao4" onclick="selecionarOpcao(${listaIds[3]})">${ListaOpcoes[3]}</button>
                 </div>
                 `
 
     }
 
-    function selecionarOpcao(pontos, tema) {
-        if (tema === "Atividade Física") {
-            pontosAtividadeFisica += pontos;
-        } else if (tema === "Mobilidade") {
-            pontosMobilidade += pontos;
-        } else if (tema === "Saúde Mental") {
-            pontosSaudeMental += pontos;
-        } else if (tema === "Qualidade do Sono") {
-            pontosQualidadeSono += pontos;
-        } else if (tema === "Alimentação") {
-            pontosAlimentacao += pontos;
-        } else if (tema === "Conexão Familiar") {
-            pontosConexaoFamiliar += pontos;
-        }
-
+    function selecionarOpcao(fkOpcao) {
+        listaFkOpcao.push(fkOpcao);
         proximaPergunta();
 
     }

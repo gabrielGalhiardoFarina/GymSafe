@@ -1,73 +1,70 @@
 CREATE DATABASE GymSafe;
-
 USE GymSafe;
 
-CREATE TABLE
-	usuario (
-		id INT PRIMARY KEY AUTO_INCREMENT,
-		nome VARCHAR(50),
-		email VARCHAR(50) UNIQUE,
-		senha VARCHAR(255)
-	);
+CREATE TABLE usuario (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50),
+    email VARCHAR(50) UNIQUE,
+    senha VARCHAR(255)
+);
 
-CREATE TABLE
-	tema (
-		id INT PRIMARY KEY AUTO_INCREMENT,
-		nome VARCHAR(50) UNIQUE
-	);
+CREATE TABLE tema (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50) UNIQUE
+);
 
-CREATE TABLE
-	pergunta (
-		id INT PRIMARY KEY AUTO_INCREMENT,
-		pergunta VARCHAR(255),
-		fkTema INT,
-		FOREIGN KEY (fkTema) REFERENCES tema (id)
-	);
+CREATE TABLE pergunta (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    pergunta VARCHAR(255),
+    fkTema INT,
+    FOREIGN KEY (fkTema) REFERENCES tema(id)
+);
 
-CREATE TABLE
-	opcao (
-		id INT PRIMARY KEY AUTO_INCREMENT,
-		opcao VARCHAR(255),
-		pontos INT,
-		fkPergunta INT,
-		FOREIGN KEY (fkPergunta) REFERENCES pergunta (id)
-	);
+CREATE TABLE opcao (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    opcao VARCHAR(255),
+    pontos INT,
+    fkPergunta INT,
+    FOREIGN KEY (fkPergunta) REFERENCES pergunta(id)
+);
 
-CREATE TABLE
-	pontos (
-		id INT PRIMARY KEY AUTO_INCREMENT,
-		nome VARCHAR(50),
-		valor INT,
-		fkUsuario INT,
-		FOREIGN KEY (fkUsuario) REFERENCES usuario (id)
-	);
+CREATE TABLE resposta (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    fkUsuario INT,
+    fkOpcao INT,
+    FOREIGN KEY (fkUsuario) REFERENCES usuario(id),
+    FOREIGN KEY (fkOpcao) REFERENCES opcao(id)
+);
 
-CREATE TABLE
-	card (
-		id INT PRIMARY KEY AUTO_INCREMENT,
-		status VARCHAR(50),
-		imagem VARCHAR(255),
-		titulo VARCHAR(255),
-		descricao VARCHAR(255)
-	);
 
-CREATE TABLE
-	beneficio (
-		id INT PRIMARY KEY AUTO_INCREMENT,
-		nome VARCHAR(50),
-		valor INT,
-		fkCard INT,
-		FOREIGN KEY (fkCard) REFERENCES card (id)
-	);
+CREATE TABLE card (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    status VARCHAR(50),
+    imagem VARCHAR(255),
+    titulo VARCHAR(255),
+    descricao VARCHAR(255)
+);
 
-CREATE TABLE
-	custo (
-		id INT PRIMARY KEY AUTO_INCREMENT,
-		nome VARCHAR(255),
-		valor INT,
-		fkCard INT,
-		FOREIGN KEY (fkCard) REFERENCES card (id)
-	);
+CREATE TABLE beneficio (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50),
+    valor INT,
+    fkCard INT,
+    FOREIGN KEY (fkCard) REFERENCES card(id)
+);
+
+CREATE TABLE custo (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(255),
+    valor INT,
+    fkCard INT,
+    FOREIGN KEY (fkCard) REFERENCES card(id)
+);
+
+INSERT INTO
+	usuario (nome, email, senha)
+VALUES
+	('Usuario Teste', 'teste@gmail.com', '123123');
 
 INSERT INTO
 	tema (nome)
@@ -434,3 +431,38 @@ VALUES
 	('vida', 5, 15),
 	('foco', 17, 16),
 	('foco', 5, 17);
+
+
+insert into resposta (fkUsuario, fkOpcao)
+values
+(1, 4),
+(1, 8),
+(1, 12),
+(1, 16),
+(1, 17),
+(1, 21),
+(1, 26),
+(1, 29),
+(1, 34),
+(1, 39),
+(1, 44),
+(1, 47),
+(1, 52),
+(1, 56),
+(1, 58),	
+(1, 63),
+(1, 67),
+(1, 71);
+
+ SELECT respGrup.nome AS Tema, SUM(respGrup.pontos) AS Total_Pontos
+FROM (
+    SELECT t.nome, o.pontos
+    FROM resposta r
+    JOIN opcao o ON o.id = r.fkOpcao
+    JOIN pergunta p ON p.id = o.fkPergunta
+    JOIN tema t ON t.id = p.fkTema
+    WHERE r.fkUsuario = 1
+    ORDER BY r.id DESC 
+    LIMIT 18
+) AS respGrup
+GROUP BY respGrup.nome; 
